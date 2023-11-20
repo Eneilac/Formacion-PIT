@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Tarjeta jugador</title>
+    </head>
+
+    <body>
+        <header>
+            <h1>Jugadores de futboll</h1>
+        </header>
+
+        <section class="sections form">
+            <h2>Creacion del jugador</h2>
+            <div class="container">
+                <form id="miFormulario">
+                    <label for="nombre">Nombre: </label>
+                    <input type="text" name="nombre" id="nombre">
+
+                    <label for="equipo">Equipo: </label>
+                    <input type="text" name="equipo" id="equipo">
+
+                    <label for="pais">Pais: </label>
+                    <input type="text" name="pais" id="pais">
+
+                    <label for="img">Imagen: </label>
+                    <select name="imagen" id="img">
+                        <option value="/assets/images/benzema.jpg">Benzema</option>
+                        <option value="/assets/images/dijk.jpg">Dijk</option>
+                        <option value="/assets/images/vinicius.jpg">Vinicius</option>
+                    </select>
+
+                    <label for="habilidades">Habilidades</label>
+                    <input type="number" name="pac" id="pac" placeholder="Pac">
+                    <input type="number" name="sho" id="sho" placeholder="Sho">
+                    <input type="number" name="pas" id="pas" placeholder="pas">
+                    <input type="number" name="dri" id="dri" placeholder="dri">
+                    <input type="number" name="def" id="def" placeholder="def">
+                    <input type="number" name="phy" id="phy" placeholder="phy">
+
+                    <button>aceptar</button>
+                </form>
+            </div>
+        </section>
+
+        <section class="sections jugadores">
+            <h2>Mis jugadores</h1>
+
+        </section>
+
+        <script src="js/script.js"></script>
+    </body>
+
+</html>
