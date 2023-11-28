@@ -1,56 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Tarjeta jugador</title>
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Tarjeta jugador</title>
+</head>
 
-    <body>
-        <header>
-            <h1>Jugadores de futboll</h1>
-        </header>
+<body>
+    <header>
+        <h1>Jugadores de futboll</h1>
+    </header>
 
-        <section class="sections form">
-            <h2>Creacion del jugador</h2>
-            <div class="container">
-                <form id="miFormulario">
-                    <label for="nombre">Nombre: </label>
-                    <input type="text" name="nombre" id="nombre">
+    <section class="section form">
+        <h2>Creacion del jugador</h2>
+        <div class="container">
+            <form id="miFormulario">
 
-                    <label for="equipo">Equipo: </label>
-                    <input type="text" name="equipo" id="equipo">
+                <div class="superior">
+                    <div class="iconos">
+                        <label for="pais">
+                            <img src="assets/images/banderas/españa.png" alt="Imagen de ejemplo">
+                        </label>
 
-                    <label for="pais">Pais: </label>
-                    <input type="text" name="pais" id="pais">
+                        <input type="file" name="pais" id="pais" accept="image/png, image/gif, image/jpeg"
+                            onclick="cambiarIcono('pais')">
 
-                    <label for="img">Imagen: </label>
-                    <select name="imagen" id="img">
-                        <option value="/assets/images/benzema.jpg">Benzema</option>
-                        <option value="/assets/images/dijk.jpg">Dijk</option>
-                        <option value="/assets/images/vinicius.jpg">Vinicius</option>
+                        <label for="equipo">
+                            <img src="assets/images/equipos/madrid.png" alt="Imagen de ejemplo">
+                        </label>
+                        <input type="file" name="equipo" id="equipo" accept="image/png, image/gif, image/jpeg"
+                            onclick="cambiarIcono('equipo')">
+                    </div>
+
+                    <div class="fondo" id="fondo">
+
+                    </div>
+                </div>
+
+                <div class="img">
+
+                    <label for="img"></label>
+                    <select name="imagen" id="img" onchange="cambiarFondo()">
+                        <option value="assets/images/benzema.jpg">Benzema</option>
+                        <option value="assets/images/dijk.jpg">Dijk</option>
+                        <option value="assets/images/vinicius.jpg">Vinicius</option>
                     </select>
+                </div>
 
-                    <label for="habilidades">Habilidades</label>
-                    <input type="number" name="pac" id="pac" placeholder="Pac">
-                    <input type="number" name="sho" id="sho" placeholder="Sho">
-                    <input type="number" name="pas" id="pas" placeholder="pas">
-                    <input type="number" name="dri" id="dri" placeholder="dri">
-                    <input type="number" name="def" id="def" placeholder="def">
-                    <input type="number" name="phy" id="phy" placeholder="phy">
 
-                    <button>aceptar</button>
-                </form>
-            </div>
-        </section>
+                <div class="nombre">
+                    <label for="nombre"></label>
+                    <input type="text" name="nombre" id="nombre" placeholder="nombre">
+                </div>
 
-        <section class="sections jugadores">
-            <h2>Mis jugadores</h1>
+                <div class="habilidades">
 
-        </section>
+                    <div class="block1">
+                        <input type="number" name="pac" id="pac" placeholder="Pac">
+                        <input type="number" name="sho" id="sho" placeholder="Sho">
+                        <input type="number" name="pas" id="pas" placeholder="pas">
+                    </div>
+                    <div class="block2">
+                        <input type="number" name="dri" id="dri" placeholder="dri">
+                        <input type="number" name="def" id="def" placeholder="def">
+                        <input type="number" name="phy" id="phy" placeholder="phy">
+                    </div>
+                </div>
+                <button>aceptar</button>
+            </form>
+        </div>
+    </section>
 
-        <script src="js/script.js"></script>
-    </body>
+    <section class="section">
+        <div class="cabeceraTarjetas">
+            <h2>Mis jugadores</h2>
+        </div>
+
+        <div class="container">
+
+        </div>
+
+    </section>
+
+    <script src="js/script.js"></script>
+</body>
 
 </html>

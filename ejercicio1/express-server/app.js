@@ -8,14 +8,14 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-const datosFichero = "db/datos.json";
+const datosFichero = "db/players.json";
 let datos = [];
 
 try {
-  const datosLeidos = fs.readFileSync(datosFichero, 'utf-8');
-  datos = JSON.parse(datosLeidos);
+    const datosLeidos = fs.readFileSync(datosFichero, 'utf-8');
+    datos = JSON.parse(datosLeidos);
 } catch (error) {
-  console.error('Error al leer el archivo:', error);
+    console.error('Error al leer el archivo:', error);
 }
 
 // Función para generar una ID única
@@ -25,11 +25,8 @@ function generateUniqueId() {
 
 app.listen(3000, () => console.log("El servidor está escuchando en el puerto 3000"));
 
-app.get('/datos', (req, res, next) => {
-    res.json(datos);
-});
-
-app.post('/datos', (req, res) => {
+/***Funcion post del servidor*/
+app.post('/players', (req, res) => {
     const nuevosDatos = req.body;
 
     if (nuevosDatos) {
@@ -43,3 +40,19 @@ app.post('/datos', (req, res) => {
         res.status(400).json({ error: 'Datos no válidos en la solicitud' });
     }
 });
+
+
+/***Funcion get del servidor*/
+app.get('/players', (req, res) => {
+    let datos = [];
+
+    try {
+        const datosLeidos = fs.readFileSync(datosFichero, 'utf-8');
+        datos = JSON.parse(datosLeidos);
+    } catch (error) {
+        console.error('Error al leer el archivo:', error);
+    }
+
+    res.json(datos);
+});
+

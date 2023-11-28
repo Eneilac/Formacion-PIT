@@ -1,0 +1,132 @@
+body, html, h1 {
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    text-align: center;
+    padding: 2%;
+    margin-bottom: 15px;
+    background-color: cadetblue;
+}
+
+/***Formulario tarjetas***/
+.section.form {
+    padding: 4px;
+    margin: auto;
+    max-width: 270px;
+    text-align: center;
+    border-radius: 46px;
+    background: linear-gradient(145deg, #cacaca, #fefefe);
+    box-shadow:  17px 17px 34px #8f8f8f,
+                 -17px -17px 34px #ffffff;
+}
+
+input#equipo {
+    width: 15px;
+}
+
+input#pais {
+
+    width: 15px;
+}
+
+input#nombre {
+    width: 50px;
+}
+
+
+/***Cabecera***/
+
+.superior {
+    display: grid;
+    grid-template-columns: 20% auto;
+    justify-content: center;
+    align-items: center;
+}
+
+.iconos {
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(0, 0, 255, 0.2);
+    backdrop-filter: blur(2px);
+    border-radius: 15px;
+}
+
+.iconos label {
+    cursor: pointer;
+}
+
+
+.superior #pais {
+    display: none;
+}
+
+.superior #equipo {
+    display: none;
+}
+
+.superior img:nth-of-type(1) {
+    height: 25px;
+}
+
+
+.superior img:nth-of-type(2) {
+    height: 25px;
+}
+
+.fondo {
+    background: url(../assets/images/benzema.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: -15;
+    width: 150px;
+    height: 150px;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+    clip-path: polygon(0 0, 100% 0, 50% 110%);
+}
+
+#nombre{
+    margin-top: 4px;
+    border: none;
+}
+
+
+
+/**Habilidades**/
+div.habilidades {
+    display: grid;
+    grid-template-columns: 25% 25%;
+    justify-content: center;
+    align-items: center;
+
+}
+::placeholder {
+    text-align: center; 
+ }
+ 
+
+div.habilidades .block1, div.habilidades .block2 {
+    width: min-content;
+    margin: auto;
+}
+
+div.habilidades input {
+    width: 38px;
+    margin-top: 2px;
+    border: none;
+    background-color: rgba(0, 0, 255, 0.2);
+    backdrop-filter: blur(2px);
+    border-radius: 15px;
+}
+
+button, .habilidades, .img {
+    margin-top: 15px;
+}
+
+/***Jugadores creados***/
+
+.cabeceraTarjetas{
+    text-align: center;
+}
