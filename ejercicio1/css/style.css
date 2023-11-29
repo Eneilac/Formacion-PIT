@@ -11,7 +11,7 @@ header {
 }
 
 /***Formulario tarjetas***/
-.section.form {
+.section.form,.tarjeta {
     padding: 4px;
     margin: auto;
     max-width: 270px;
@@ -112,8 +112,8 @@ div.habilidades .block1, div.habilidades .block2 {
     margin: auto;
 }
 
-div.habilidades input {
-    width: 38px;
+div.habilidades input,div.habilidades p {
+    width: 55px;
     margin-top: 2px;
     border: none;
     background-color: rgba(0, 0, 255, 0.2);
@@ -125,8 +125,88 @@ button, .habilidades, .img {
     margin-top: 15px;
 }
 
+
+/**Boton chulo**/
+
+button {
+    border: none;
+    color: #fff;
+    background-image: linear-gradient(30deg, #0400ff, #4ce3f7);
+    border-radius: 20px;
+    background-size: 100% auto;
+    font-family: inherit;
+    font-size: 17px;
+    padding: 0.6em 1.5em;
+   }
+   
+   button:hover {
+    background-position: right center;
+    background-size: 200% auto;
+    -webkit-animation: pulse 2s infinite;
+    animation: pulse512 1.5s infinite;
+   }
+   
+   @keyframes pulse512 {
+    0% {
+     box-shadow: 0 0 0 0 #05bada66;
+    }
+   
+    70% {
+     box-shadow: 0 0 0 10px rgb(218 103 68 / 0%);
+    }
+   
+    100% {
+     box-shadow: 0 0 0 0 rgb(218 103 68 / 0%);
+    }
+   }
 /***Jugadores creados***/
 
-.cabeceraTarjetas{
+.cabeceraTarjetas,#tarjetas,.inferior{
     text-align: center;
 }
+
+
+.tarjeta{
+    margin: 35px auto;
+    height: 350px;
+    padding: 15px;
+}
+
+.arriba{
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(0, 0, 255, 0.2);
+    backdrop-filter: blur(2px);
+    border-radius: 15px;
+    padding: 2%;
+    justify-content: center;
+    align-items: center;
+}
+
+.grid{
+    display: grid;
+    grid-template-columns: 20% auto;
+    justify-content: center;
+    align-items: center;
+}
+
+.arriba p{
+    width: max-content;
+}
+
+.arriba img{
+    width: 25px;
+}
+
+.foto img{
+    width: 160px;
+    height: 200px;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+    clip-path: polygon(0 0, 100% 0, 50% 110%);
+}
+
+
+
+
+

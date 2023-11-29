@@ -1,17 +1,17 @@
 [
   {
-    "nombre": "Paco",
-    "equipo": "/ejercicio1/assets/images/equipos/barsa.png",
-    "pais": "/ejercicio1/assets/images/banderas/peru.png",
+    "nombre": "pedro",
+    "equipo": "/assets/images/equipos/barsa.png",
+    "pais": "/assets/images/banderas/peru.png",
     "habilidades": {
-      "pac": "1",
+      "pac": "12",
       "sho": "1",
-      "pas": "1",
-      "dri": "1",
-      "def": "1",
-      "phy": "1"
+      "pas": "12",
+      "dri": "12",
+      "def": "12",
+      "phy": "12"
     },
-    "imagen": "assets/images/benzema.jpg",
-    "id": "e0acbb32-6eb5-46a1-a9ec-fe39334123f4"
+    "imagen": "assets/images/dijk.jpg",
+    "id": "92524ae4-82a4-454d-8160-250288bc16a5"
   }
 ]
