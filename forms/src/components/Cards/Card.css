@@ -48,6 +48,7 @@ article header span {
 }
 
 article img {
+  height: 80px;
   border: 2px solid white;
   object-fit: contain;
   border-radius: 100%;

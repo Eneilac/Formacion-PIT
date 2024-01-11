@@ -4,7 +4,7 @@ import { createBrowserRouter } from "react-router-dom";
 import { BASE_PATH, EVERYTHIK_PATH, USER } from "../constants/paths";
 import { Error404 } from "../components/errorpages/Error404";
 import { Home } from "../scenes/home/Home";
-import Card from "../components/Cards/Card"
+import { User } from "../components/user/User";
 
 
 
@@ -20,7 +20,7 @@ const router = createBrowserRouter(
                 },
                 {
                     path: USER,
-                    element: <Card />
+                    element: <User />
                 }
             ]
         },

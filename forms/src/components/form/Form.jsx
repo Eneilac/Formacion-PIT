@@ -1,11 +1,12 @@
+import { post } from '../../services/request';
 import './form.css'
 import React, { useState } from "react";
 
 function Form({ onSubmit }) {
     const [formData, setFormData] = useState({
-        name: "",
-        lastname: "",
-        file: ""
+        username: "",
+        password: "",
+        mail: ""
     });
 
     const handleChange = (e) => {
@@ -21,39 +22,40 @@ function Form({ onSubmit }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
+        console.log(formData);
         // Llama a la función onSubmit del padre y pasa los datos del formulario
-        onSubmit(formData);
+        post('/users', formData)
     };
 
     return (
         <div className="container-form">
             <form onSubmit={handleSubmit}>
-                <label htmlFor="name">Nombre:</label>
+                <label htmlFor="username">Nombre:</label>
                 <input
                     type="text"
-                    name="name"
+                    name="username"
                     placeholder="Nombre"
                     onChange={handleChange}
                     value={formData.name}
                 />
 
-                <label htmlFor="lastname">Apellidos:</label>
+                <label htmlFor="password">Password:</label>
                 <input
-                    type="text"
-                    name="lastname"
-                    placeholder="Apellidos"
+                    type="password"
+                    name="password"
                     onChange={handleChange}
-                    value={formData.lastname}
                 />
 
-                <label htmlFor="file">Archivo:</label>
+
+                <label htmlFor="mail">Email:</label>
                 <input
-                    type="file"
-                    name="file"
-                    accept="image/*"
+                    type="email"
+                    name="mail"
+                    placeholder="Email"
                     onChange={handleChange}
+                    value={formData.mail}
                 />
+
 
                 <button type="submit">Aceptar</button>
             </form>
