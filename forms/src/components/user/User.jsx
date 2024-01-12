@@ -27,8 +27,8 @@ export function User() {
     }, [profiles]);
 
 
-    const handleDelete = (index, id) => {
-        const newProfiles = profiles.filter((_, i) => i !== index);
+    const handleDelete = (id) => {
+        const newProfiles = profiles.filter((profile) => profile.id !== id);
         console.log(newProfiles)
         del('/users/' + id)
         setProfiles(newProfiles);
@@ -44,14 +44,14 @@ export function User() {
 
                 <section>
                     {profiles &&
-                        profiles.map((profile,index) =>
+                        profiles.map((profile, index) =>
                             <Card
                                 key={index}
                                 username={profile.username}
                                 usernameFormated={format(profile.username)}
                                 id={profile.id}
                                 handleDelete={handleDelete}
-                                
+
                             />
                         )
                     }
