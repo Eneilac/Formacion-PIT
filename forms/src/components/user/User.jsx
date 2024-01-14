@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Card from "../Cards/Card";
 import Form from "../form/Form"
-import { del, get } from "../../services/request";
+import { del, get, post } from "../../services/request";
 
 export function User() {
     const format = (userName) => `@${userName}`; //funcion que formatea el texto
@@ -16,7 +16,6 @@ export function User() {
             get('/users')
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data);
                     setProfiles(data);
                 })
                 .catch(error => {
@@ -29,17 +28,27 @@ export function User() {
 
     const handleDelete = (id) => {
         const newProfiles = profiles.filter((profile) => profile.id !== id);
-        console.log(newProfiles)
         del('/users/' + id)
         setProfiles(newProfiles);
     };
 
-    return (
+    const handleSubmit = (data) => {
+        const newProfiles = [...profiles]
+        newProfiles.push(data)
+        post('/users', data)
+        setProfiles(newProfiles)
+    }
 
+
+
+    return (
         <>
             <div className="container">
                 <section>
-                    <Form />
+                    <Form
+
+                        handleSubmit={handleSubmit}
+                    />
                 </section>
 
                 <section>

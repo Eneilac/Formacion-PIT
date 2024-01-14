@@ -1,8 +1,7 @@
-import { post } from '../../services/request';
 import './form.css'
 import React, { useState } from "react";
 
-function Form({ onSubmit }) {
+function Form({handleSubmit}) {
     const [formData, setFormData] = useState({
         username: "",
         password: "",
@@ -20,16 +19,15 @@ function Form({ onSubmit }) {
         });
     };
 
-    const handleSubmit = (e) => {
+    const submit = (e) => {
         e.preventDefault();
-        console.log(formData);
         // Llama a la función onSubmit del padre y pasa los datos del formulario
-        post('/users', formData)
+        handleSubmit(formData)
     };
 
     return (
         <div className="container-form">
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={submit}>
                 <label htmlFor="username">Nombre:</label>
                 <input
                     type="text"
