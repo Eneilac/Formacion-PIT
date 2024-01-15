@@ -36,8 +36,11 @@ export function User() {
         }
     };
 
-    const handleSubmit = () => {
-        post()
+    const handleSubmit = (data) => {
+        post('/users', data)
+        const newProfiles = [...profiles]
+        newProfiles.push(data)
+        setProfiles(newProfiles)
     }
 
     return (
@@ -46,9 +49,9 @@ export function User() {
             <div className="container">
                 <section>
                     <Form
-
-
-
+                        handleSubmit={handleSubmit}
+                        profiles={profiles}
+                        setProfiles={setProfiles}
                     />
                 </section>
 

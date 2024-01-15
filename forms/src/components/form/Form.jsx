@@ -1,7 +1,7 @@
 import './form.css'
 import React, { useState } from "react";
 
-function Form({handleSubmit}) {
+function Form({ handleSubmit, profiles, setProfiles }) {
     const [formData, setFormData] = useState({
         username: "",
         password: "",
@@ -21,8 +21,10 @@ function Form({handleSubmit}) {
 
     const submit = (e) => {
         e.preventDefault();
-        // Llama a la función onSubmit del padre y pasa los datos del formulario
-        handleSubmit(formData)
+        const newProfiles = [...profiles];
+        newProfiles.push(formData);
+        setProfiles(newProfiles);
+        handleSubmit(formData);
     };
 
     return (
@@ -35,6 +37,7 @@ function Form({handleSubmit}) {
                     placeholder="Nombre"
                     onChange={handleChange}
                     value={formData.name}
+                    required
                 />
 
                 <label htmlFor="password">Password:</label>
@@ -42,6 +45,7 @@ function Form({handleSubmit}) {
                     type="password"
                     name="password"
                     onChange={handleChange}
+                    required
                 />
 
 
@@ -52,6 +56,7 @@ function Form({handleSubmit}) {
                     placeholder="Email"
                     onChange={handleChange}
                     value={formData.mail}
+                    required
                 />
 
 
