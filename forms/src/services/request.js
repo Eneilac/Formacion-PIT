@@ -1,4 +1,6 @@
 import { BASE_URL } from "../constants/constants";
+import { toast } from 'react-toastify';
+
 
 
 export async function get(path) {
@@ -15,16 +17,13 @@ export async function get(path) {
 }
 
 export function post(path, data) {
-    fetch(BASE_URL + path, {
+    return fetch(BASE_URL + path, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        'body': JSON.stringify(data)
+        body: JSON.stringify(data) // Usar directamente 'body' en lugar de 'body': JSON.stringify(data)
     })
-        .catch(error => {
-            console.log(error);
-        })
 }
 
 export function patch(path, data) {
@@ -35,29 +34,20 @@ export function patch(path, data) {
         },
         body: JSON.stringify(data)
     })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error(`Error: ${response.status} - ${response.statusText}`);
-        }
-        return response.json(); 
-    })
-    .catch(error => {
-        console.log(error);
-        throw error; 
-    });
 }
 
 
 
 
 export function del(path) {
-    fetch(BASE_URL + path, {
+    return fetch(BASE_URL + path, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
         },
     })
         .catch(error => {
+            toast.error("Error al borrar un usuario")
             console.log(error);
         })
 }

@@ -2,12 +2,13 @@ import './Card.css'
 import { Pencil, Trash } from '../../constants/icons'
 import { useState } from 'react';
 import { patch } from '../../services/request';
-function Card({ username, usernameFormated, id, handleDelete, setProfiles, profiles }) {
+import { toast } from 'react-toastify';
+
+function Card({ usernameFormated, handleDelete, setProfiles, profiles, user }) {
 
 
     const [isEditing, setIsEditing] = useState(false);
-    const [editedUsername, setUsername] = useState(username);
-
+    const [editedUsername, setUsername] = useState(user.username);
 
     const handleClickEdit = () => {
         setIsEditing(!isEditing);
@@ -18,10 +19,11 @@ function Card({ username, usernameFormated, id, handleDelete, setProfiles, profi
         if (e.key === 'Enter') {
             setIsEditing(false);
             try {
-                console.log("esta es la id" + id)
-                patch(`/users/${id}`, { username: editedUsername })
+
+                patch(`/users`, { id: user.id, username: editedUsername })
+
                     .then(() => {
-                        const index = profiles.findIndex(profile => profile.id === id);
+                        const index = profiles.findIndex(profile => profile.id === user.id);
                         if (index !== -1) {
                             const newProfiles = [...profiles];
                             newProfiles[index] = {
@@ -29,6 +31,7 @@ function Card({ username, usernameFormated, id, handleDelete, setProfiles, profi
                                 mail: newProfiles[index].mail,
                                 password: newProfiles[index].password
                             };
+                            toast.success("editado")
                             setProfiles(newProfiles);
                         }
                     });
@@ -60,7 +63,7 @@ function Card({ username, usernameFormated, id, handleDelete, setProfiles, profi
                         ) : (
                             // En modo de visualización, mostrar el username normal.
                             <>
-                                <strong>{username}</strong>
+                                <strong>{user.username}</strong>
                                 <span>{usernameFormated}</span>
                             </>
                         )}
@@ -68,7 +71,7 @@ function Card({ username, usernameFormated, id, handleDelete, setProfiles, profi
                 </header>
 
                 <aside>
-                    <div onClick={() => handleDelete(id)} className='icon'>
+                    <div onClick={() => handleDelete(user.id)} className='icon'>
                         <Trash />
                     </div>
                     <div className='icon' onClick={() => handleClickEdit()}>
