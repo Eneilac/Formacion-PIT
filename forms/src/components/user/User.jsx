@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Card from "../Cards/Card";
 import Form from "../form/Form"
-import { del, get } from "../../services/request";
+import { del, get, post } from "../../services/request";
 
 export function User() {
     const format = (userName) => `@${userName}`; //funcion que formatea el texto
@@ -16,7 +16,6 @@ export function User() {
             get('/users')
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data);
                     setProfiles(data);
                 })
                 .catch(error => {
@@ -27,24 +26,35 @@ export function User() {
     }, [profiles]);
 
 
-    const handleDelete = (index, id) => {
-        const newProfiles = profiles.filter((_, i) => i !== index);
-        console.log(newProfiles)
-        del('/users/' + id)
-        setProfiles(newProfiles);
+    const handleDelete = async (id) => {
+        try {
+            await del('/users/' + id);
+            const newProfiles = profiles.filter(profile => profile.id !== id);
+            setProfiles(newProfiles);
+        } catch (error) {
+            console.error('Error al enviar solicitud DELETE:', error);
+        }
     };
+
+    const handleSubmit = () => {
+        post()
+    }
 
     return (
 
         <>
             <div className="container">
                 <section>
-                    <Form />
+                    <Form
+
+
+
+                    />
                 </section>
 
                 <section>
                     {profiles &&
-                        profiles.map((profile,index) =>
+                        profiles.map((profile, index) =>
                             <Card
                                 key={index}
                                 username={profile.username}
