@@ -39,11 +39,11 @@ export function patch(path, data) {
         if (!response.ok) {
             throw new Error(`Error: ${response.status} - ${response.statusText}`);
         }
-        return response.json(); // o response.text() u otros métodos según tus necesidades
+        return response.json(); 
     })
     .catch(error => {
         console.log(error);
-        throw error; // Asegúrate de lanzar el error nuevamente para que sea capturado correctamente
+        throw error; 
     });
 }
 
