@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 import React from "react"
 import './header.css'
-import { BASE_PATH, USER } from "../../constants/paths"
+import { BASE_PATH, LOGIN, REGISTER, USER } from "../../constants/paths"
 
 function Header() {
 
@@ -14,8 +14,8 @@ function Header() {
             </div>
             <div className="enlaces">
                 <div><Link to={USER}>Gestión</Link></div>
-                <div><Link to={USER}>Iniciar sesion</Link></div>
-                <div><Link to={USER}>Registro</Link></div>
+                <div><Link to={LOGIN}>Iniciar sesion</Link></div>
+                <div><Link to={REGISTER}>Registro</Link></div>
             </div>
         </nav>
     )

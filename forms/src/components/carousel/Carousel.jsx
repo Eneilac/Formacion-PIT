@@ -16,7 +16,7 @@ function CarouselImages() {
             </Carousel.Item>
             <Carousel.Item interval={4000}>
                 <ImagesCarousel
-                    imageUrl="./assets/images/carousel/2.jpg"
+                    imageUrl="./assets/images/carousel/2.jpg" 
                 />
                 <Carousel.Caption>
                     <h3>Centro Deportivo la comadreja</h3>
