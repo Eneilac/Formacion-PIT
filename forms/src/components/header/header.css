@@ -8,13 +8,13 @@ nav {
     text-decoration: none;
     color: white;
     justify-content: space-between;
-
     margin-bottom: 15px;
 }
 
 nav .enlaces {
     display: flex;
     justify-items: flex-end;
+    gap: 9px;
 }
 
 .enlaces div {

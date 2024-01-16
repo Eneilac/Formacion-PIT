@@ -8,11 +8,14 @@ function Header() {
     return (
         <nav>
             <div className="logo">
-                <img src="/assets/images/header/spherelogo.png" alt="logo" />
+                <Link to={BASE_PATH}>
+                    <img src="/assets/images/header/spherelogo.png" alt="logo" />
+                </Link>
             </div>
             <div className="enlaces">
-                <div><Link to={BASE_PATH}>Home</Link></div>
-                <div><Link to={USER}>Usuarios</Link></div>
+                <div><Link to={USER}>Gestión</Link></div>
+                <div><Link to={USER}>Iniciar sesion</Link></div>
+                <div><Link to={USER}>Registro</Link></div>
             </div>
         </nav>
     )

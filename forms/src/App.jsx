@@ -6,13 +6,6 @@ import { ToastContainer } from 'react-toastify';
 
 
 function App() {
-
-
-
-
-
-
-
   return (
     <div className="app">
       <ToastContainer />
