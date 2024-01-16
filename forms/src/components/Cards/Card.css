@@ -1,9 +1,9 @@
-.card {
+.cards {
   max-width: 500px;
   margin: auto;
 }
 
-.card button {
+.cards button {
   cursor: pointer;
   margin: auto;
   border: none;

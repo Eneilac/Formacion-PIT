@@ -1,49 +1,30 @@
+import CarouselImages from '../../components/carousel/Carousel'
 import './home.css'
+
 
 export function Home() {
     return (
         <div className="home">
+
+            <CarouselImages />
+
             <section className='contenido'>
+
                 <div className="articulo">
-                    <p>
-                        Lorem ipsum dolor sit,
-                        amet consectetur adipisicing elit.
-                        A quae debitis sit rerum totam magnam adipisci.
-                        Alias soluta quo nulla in, accusantium aliquid doloribus deserunt quas illo quia,
-                        dolor accusamus?
-                    </p>
+                    <img src="./assets/images/articles/1.png" alt="articulo1" />
                 </div>
 
                 <div className="articulo">
-                    <p>
-                        Lorem ipsum dolor sit,
-                        amet consectetur adipisicing elit.
-                        A quae debitis sit rerum totam magnam adipisci.
-                        Alias soluta quo nulla in, accusantium aliquid doloribus deserunt quas illo quia,
-                        dolor accusamus?
-                    </p>
+                <img src="./assets/images/articles/2.png" alt="articulo1" />
                 </div>
 
                 <div className="articulo">
-                    <p>
-                        Lorem ipsum dolor sit,
-                        amet consectetur adipisicing elit.
-                        A quae debitis sit rerum totam magnam adipisci.
-                        Alias soluta quo nulla in, accusantium aliquid doloribus deserunt quas illo quia,
-                        dolor accusamus?
-                    </p>
+                <img src="./assets/images/articles/3.jpg" alt="articulo1" />
+
                 </div>
-            
-                <div className="articulo">
-                    <p>
-                        Lorem ipsum dolor sit,
-                        amet consectetur adipisicing elit.
-                        A quae debitis sit rerum totam magnam adipisci.
-                        Alias soluta quo nulla in, accusantium aliquid doloribus deserunt quas illo quia,
-                        dolor accusamus?
-                    </p>
-                </div>
-         
+
+
+
             </section>
         </div>
 

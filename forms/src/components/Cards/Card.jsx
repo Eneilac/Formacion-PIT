@@ -45,7 +45,7 @@ function Card({ usernameFormated, handleDelete, setProfiles, profiles, user }) {
 
 
     return (
-        <div className="card">
+        <div className="cards">
             <article>
                 <header>
                     <img src='./assets/images/user.png' alt='imagen perfil' />

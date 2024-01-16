@@ -2,7 +2,10 @@ footer {
     display: flex;
     padding: 15px;
     justify-content: space-around;
-    background-color: rgba(61, 53, 53, 0.555);
+    align-items: center;
+    margin-top: 10px;
+    background-color: rgb(34, 34, 34);
+    box-shadow: 1px 4px 7px 4px rgba(255, 255, 255, 1);
 }
 
 footer .logo img {
