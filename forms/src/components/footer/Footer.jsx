@@ -3,7 +3,7 @@ import './footer.css'
 
 function Footer() {
     return (
-        <footer>
+        <footer className="footer">
             <div className="text">
                 <h4>Made in EneilaC</h4>
             </div>

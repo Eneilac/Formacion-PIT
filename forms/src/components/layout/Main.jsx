@@ -1,23 +1,22 @@
-import { Outlet } from "react-router-dom"
-import React from "react"
-import Header from "../header/Header"
-import './main.css'
-import Footer from "../footer/Footer"
+import { Outlet } from "react-router-dom";
+import Header from "../header/Header";
+import './main.css';
+import Footer from "../footer/Footer";
 
 function Main() {
-
     return (
-
-        <div>
-            <Header />
+        <section className="layout">
+            <div className="header">
+                <Header />
+            </div>
+            <div className="main">
                 <Outlet />
-            <Footer />
-        </div>
-    )
-
-
-
+            </div>
+            <div className="footer">
+                <Footer />
+            </div>
+        </section>
+    );
 }
 
-
-export default Main
+export default Main;

@@ -1,21 +1,24 @@
 import { Link } from "react-router-dom"
-import React from "react"
 import './header.css'
-import { BASE_PATH, LOGIN, REGISTER, USER } from "../../constants/paths"
+import { BASE_PATH, LOGIN, USER } from "../../constants/paths"
+import { useAuth } from "../../contexts/AuthContext";
+
 
 function Header() {
 
+    const { isLoggedIn } = useAuth();
+
+
     return (
-        <nav>
+        <nav className="header">
             <div className="logo">
                 <Link to={BASE_PATH}>
                     <img src="/assets/images/header/spherelogo.png" alt="logo" />
                 </Link>
             </div>
             <div className="enlaces">
-                <div><Link to={USER}>Gestión</Link></div>
+                {isLoggedIn ? <div><Link to={USER}>Gestión</Link></div> : null}
                 <div><Link to={LOGIN}>Iniciar sesion</Link></div>
-                <div><Link to={REGISTER}>Registro</Link></div>
             </div>
         </nav>
     )

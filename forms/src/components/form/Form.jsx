@@ -9,9 +9,7 @@ function Form({ handleSubmit, profiles, setProfiles }) {
     });
 
     const handleChange = (e) => {
-
         const { name, value } = e.target;
-
         // Actualiza el estado del formulario al cambiar los campos
         setFormData({
             ...formData,

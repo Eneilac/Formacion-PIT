@@ -1,17 +1,22 @@
 import { createContext, useContext, useState } from 'react';
 
+//crear el contexto
 const AuthContext = createContext();
 
+
+//funciones del contexto
 export const AuthProvider = ({ children }) => {
     const [isLoggedIn, setLoggedIn] = useState(false);
 
     const login = () => {
+        console.log("logueado");
         setLoggedIn(true);
     };
 
     const logout = () => {
         setLoggedIn(false);
     };
+
 
     return (
         <AuthContext.Provider value={{ isLoggedIn, login, logout }}>
@@ -20,4 +25,5 @@ export const AuthProvider = ({ children }) => {
     );
 };
 
+//sirve el contexto
 export const useAuth = () => useContext(AuthContext);
