@@ -26,29 +26,27 @@ const Login = () => {
             [name]: value
         });
     };
-
     //TODO hacer funcion he olvidado contraseña 
     const submit = (e) => {
         e.preventDefault();
-
         let search = formData.text;
         let customPath = '';
-
         if (search.includes('@')) {
             customPath = `/users/search?query=${search}`;  //El endpoint por defecto busca por email
         } else {
             customPath = `/users/search?query=${search}&type=username`;
         }
-
         get(customPath)
             .then(response => {
-                response.json();
-            })
-            .then(response => {
-                if (response.password === formData.password) {
-                    login()
+                if (response.ok) {
+                    return response.json();
                 }
-
+            }).then(user => {
+                if (user[0].password === formData.password) {
+                    login()
+                } else {
+                    setErrors(true)
+                }
             })
             .catch(error => {
                 setErrors(true)
