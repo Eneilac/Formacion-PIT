@@ -1,5 +1,4 @@
 import { createContext, useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 //crear el contexto
 const AuthContext = createContext();
@@ -7,11 +6,9 @@ const AuthContext = createContext();
 //funciones del contexto
 export const AuthProvider = ({ children }) => {
     const [isLoggedIn, setLoggedIn] = useState(false);
-    const navigate = useNavigate();  // no funciona
 
     const login = () => {
         setLoggedIn(true);
-        navigate("/");
     };
 
     const logout = () => {

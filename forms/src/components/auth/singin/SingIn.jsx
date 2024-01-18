@@ -1,47 +1,121 @@
-import React from "react"
+import React, { useState } from "react"
 import { Link } from "react-router-dom"
 import './singin.css'
+import { LOGIN } from "../../../constants/paths"
 
 const SingIn = () => {
 
-    return (
+    const [errors, setErrors] = useState(false);
 
-        <form class="form">
-            <p class="title">Registro </p>
-            <p class="message">Un paso mas cerca del futuro </p>
-            <div class="flex">
+    const [formData, setFormData] = useState({
+        nombre: "",
+        apellidos:"",
+        correo:"",
+        correo2:"",
+        password: "",
+        password2:""
+    });
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        // Actualiza el estado del formulario al cambiar los campos
+        setFormData({
+            ...formData,
+            [name]: value
+        });
+    };
+
+
+    const submit = (e) => {
+        e.preventDefault();
+
+
+        
+
+    };
+
+
+
+    return (
+        <form className="form" onSubmit={submit}>
+            <p className="title">Registro </p>
+            <p className="message">Un paso mas cerca del futuro </p>
+            <div className="flex">
                 <label>
-                    <input required="" placeholder="" type="text" class="input" />
-                    <span>Nombre</span>
+                    <input
+
+                        required
+                        placeholder="Nombre"
+                        type="text"
+                        className="input"
+                        name="nombre"
+                        onChange={handleChange}
+                    />
+
                 </label>
 
                 <label>
-                    <input required="" placeholder="" type="text" class="input" />
-                    <span>Apellidos</span>
+                    <input
+                        required
+                        placeholder="Apellidos"
+                        type="text"
+                        className="input"
+                        name="apellidos"
+                        onChange={handleChange}
+
+                    />
                 </label>
             </div>
 
             <label>
-                <input required="" placeholder="" type="email" class="input" />
-                <span>Email</span>
+                <input
+                    required
+                    placeholder="Correo"
+                    type="email"
+                    className="input"
+                    name="correo"
+                    onChange={handleChange}
+
+                />
             </label>
 
             <label>
-                <input required="" placeholder="" type="email" class="input" />
-                <span> Confirmar email</span>
+                <input
+                    required
+                    placeholder="Confirmar Correo"
+                    type="email"
+                    className="input"
+                    name="correo2"
+                    onChange={handleChange}
+
+                />
             </label>
 
 
             <label>
-                <input required="" placeholder="" type="password" class="input" />
-                <span>Contraseña</span>
+                <input
+                    required
+                    placeholder="Contraseña"
+                    type="password"
+                    className="input"
+                    name="password"
+                    onChange={handleChange}
+
+                />
             </label>
             <label>
-                <input required="" placeholder="" type="password" class="input" />
-                <span>Confirmar contraseña</span>
+                <input
+                    required
+                    placeholder="Confirmar contraseña"
+                    type="password"
+                    className="input"
+                    name="password2"
+                    onChange={handleChange}
+
+                />
             </label>
-            <button class="submit">Aceptar</button>
-            <p class="signin">¿Ya tienes una cuenta? <Link>Iniciar sesion</Link> </p>
+            <button className="submit">Aceptar</button>
+            <p className="signin">¿Ya tienes una cuenta? <Link to={LOGIN}>Iniciar sesion</Link> </p>
         </form>
     )
 }

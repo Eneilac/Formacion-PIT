@@ -26,6 +26,7 @@ const Login = () => {
             [name]: value
         });
     };
+    
     //TODO hacer funcion he olvidado contraseña 
     const submit = (e) => {
         e.preventDefault();
@@ -42,10 +43,10 @@ const Login = () => {
                     return response.json();
                 }
             }).then(user => {
-                if (user[0].password === formData.password) {
-                    login()
+                if (user && user[0] && user[0].password === formData.password) {
+                    login();
                 } else {
-                    setErrors(true)
+                    setErrors(true);
                 }
             })
             .catch(error => {
@@ -78,6 +79,7 @@ const Login = () => {
                     name="password"
                     onChange={handleChange}
                 />
+                {errors && <p className="error-message">Uno de los campos introducidos no es correcto</p>}
                 <p className="page-link">
                     <span className="page-link-label">He olvidado mi contraseña</span>
                 </p>
