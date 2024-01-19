@@ -4,7 +4,6 @@ import './login.css'
 import { APPLE_ICON, GOOGLE_ICON } from "../../../constants/icons"
 import { Link } from "react-router-dom";
 import { SINGIN } from "../../../constants/paths";
-import { get } from "../../../services/request";
 import { useAuth } from "../../../contexts/AuthContext";
 
 const Login = () => {
@@ -26,38 +25,18 @@ const Login = () => {
             [name]: value
         });
     };
-    
+
     //TODO hacer funcion he olvidado contraseña 
     const submit = (e) => {
         e.preventDefault();
-        let search = formData.text;
-        let customPath = '';
-        if (search.includes('@')) {
-            customPath = `/users/search?query=${search}`;  //El endpoint por defecto busca por email
-        } else {
-            customPath = `/users/search?query=${search}&type=username`;
-        }
-        get(customPath)
-            .then(response => {
-                if (response.ok) {
-                    return response.json();
-                }
-            }).then(user => {
-                if (user && user[0] && user[0].password === formData.password) {
-                    login();
-                } else {
-                    setErrors(true);
-                }
-            })
-            .catch(error => {
-                setErrors(true)
-                console.log(error);
-            })
+
+        let user = formData.text;
+        let pass = formData.password;
+
+
+        login(user, pass)
+
     };
-
-
-
-
 
     return (
         <div className="form-container">

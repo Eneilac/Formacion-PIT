@@ -4,6 +4,9 @@ import './main.css';
 import Footer from "../footer/Footer";
 
 function Main() {
+
+
+    
     return (
         <section className="layout">
             <div className="header">

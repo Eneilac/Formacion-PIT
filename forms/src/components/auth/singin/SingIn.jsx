@@ -5,7 +5,7 @@ import { LOGIN } from "../../../constants/paths"
 
 const SingIn = () => {
 
-    const [errors, setErrors] = useState(false);
+    //const [errors, setErrors] = useState(false);
 
     const [formData, setFormData] = useState({
         nombre: "",

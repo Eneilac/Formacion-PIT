@@ -36,9 +36,6 @@ export function patch(path, data) {
     })
 }
 
-
-
-
 export function del(path) {
     return fetch(BASE_URL + path, {
         method: 'DELETE',
@@ -50,4 +47,19 @@ export function del(path) {
             toast.error("Error al borrar un usuario")
             console.log(error);
         })
+}
+
+export function checkToken(path, credentials) {
+
+    return fetch(`${path} `, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            username: credentials.username,
+            password: credentials.password
+        }),
+        credentials: 'include',
+    });
 }

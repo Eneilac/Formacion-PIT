@@ -7,12 +7,13 @@ import { AuthProvider } from './contexts/AuthContext';
 
 
 function App() {
+
   return (
     <div className="app">
-        <ToastContainer />
-        <AuthProvider>
-          <RouterProvider router={router} />
-        </AuthProvider>
+      <ToastContainer />
+      <AuthProvider>
+        <RouterProvider router={router} />
+      </AuthProvider>
 
     </div>
   );
