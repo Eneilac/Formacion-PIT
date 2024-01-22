@@ -19,7 +19,6 @@ export const AuthProvider = ({ children }) => {
             password: pass
         }
 
-        console.log(credentials)
 
         try {
             const response = await checkToken(`${BASE_URL}/auth/login`, credentials);

@@ -55,9 +55,17 @@ export function User() {
             return response.json();
         }).then(() => {
             toast.success("Usuario creado")
-            const newProfiles = [...profiles]
-            newProfiles.push(data)
-            setProfiles(newProfiles)
+            
+            get('/users')
+                .then(response => response.json())
+                .then(data => {
+                    setProfiles(data);
+                })
+                .catch(error => {
+                    console.error(error);
+                    toast.error('Error al traer los usuarios');
+                    // Manejar el error según sea necesario
+                });
 
         }).catch(error => {
             console.error('Error al hacer la solicitud:', error);
