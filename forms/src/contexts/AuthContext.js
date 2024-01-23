@@ -1,6 +1,8 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import { checkToken } from '../services/request';
 import { BASE_URL } from '../constants/constants';
+
+
 
 //crear el contexto
 const AuthContext = createContext();
@@ -8,35 +10,39 @@ const AuthContext = createContext();
 //funciones del contexto
 export const AuthProvider = ({ children }) => {
     const [isLoggedIn, setLoggedIn] = useState(false);
+    const [errors, setErrors] = useState(false);
+
+    useEffect(() => {
+        if (localStorage.getItem('accessToken')) {
+            setLoggedIn(true)
+        }
+    },[])
 
 
-    const login = async (user, pass) => {
-        console.log(user + pass);
 
+
+    async function login(name, pass) {
         //Preguntar por que no puedo almacenar las credenciales en estados 
         const credentials = {
-            username: user,
+            username: name,
             password: pass
         }
-
 
         try {
             const response = await checkToken(`${BASE_URL}/auth/login`, credentials);
 
             if (response.ok) {
-                const data = await response.text();
-                const accessToken = data;
-
-                // El token de manera segura en localStorage
+                const accessToken = await response.text();
+                // Guardar el token de manera segura en localStorage
                 localStorage.setItem('accessToken', accessToken);
-                console.log('Token de acceso almacenado:', accessToken);
 
                 setLoggedIn(true);
             } else {
-                console.error('Error en el inicio de sesión:', response.statusText);
+                setErrors(true);
             }
         } catch (error) {
             console.error('Error al procesar la solicitud:', error);
+            setErrors(true);
         }
     };
 
@@ -55,8 +61,9 @@ export const AuthProvider = ({ children }) => {
     const authContextValue = {
         isLoggedIn,
         setLoggedIn,
+        errors,
         login,
-        logout
+        logout,
     };
 
     return (

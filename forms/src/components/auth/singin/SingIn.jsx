@@ -2,6 +2,8 @@ import React, { useState } from "react"
 import { Link } from "react-router-dom"
 import './singin.css'
 import { LOGIN } from "../../../constants/paths"
+import { get, post } from "../../../services/request"
+import { toast } from "react-toastify"
 
 const SingIn = () => {
 
@@ -9,11 +11,11 @@ const SingIn = () => {
 
     const [formData, setFormData] = useState({
         nombre: "",
-        apellidos:"",
-        correo:"",
-        correo2:"",
+        apellidos: "",
+        correo: "",
+        correo2: "",
         password: "",
-        password2:""
+        password2: ""
     });
 
     const handleChange = (e) => {
@@ -26,18 +28,33 @@ const SingIn = () => {
     };
 
 
-    const submit = (e) => {
-        e.preventDefault();
+    const handleSubmit = (data) => {
+        post('/users', data).then(response => {
+            if (!response.ok) {
+                throw new Error(`Error al hacer la solicitud: ${response.statusText}`);
+            }
+            return response.json();
+        }).then(() => {
+            toast.success("Usuario creado")
 
+            get('/users')
+                .then(response => response.json())
+                .catch(error => {
+                    console.error(error);
+                    toast.error('Error al traer los usuarios');
+                    // Manejar el error según sea necesario
+                });
 
-        
-
-    };
-
+        }).catch(error => {
+            console.error('Error al hacer la solicitud:', error);
+            toast.error("Error al añadir un usuario");
+            throw error;
+        })
+    }
 
 
     return (
-        <form className="form" onSubmit={submit}>
+        <form className="form" onSubmit={handleSubmit}>
             <p className="title">Registro </p>
             <p className="message">Un paso mas cerca del futuro </p>
             <div className="flex">

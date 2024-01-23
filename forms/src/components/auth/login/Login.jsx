@@ -1,21 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import './login.css'
 
 import { APPLE_ICON, GOOGLE_ICON } from "../../../constants/icons"
 import { Link } from "react-router-dom";
-import { SINGIN } from "../../../constants/paths";
+import { BASE_PATH, SINGIN } from "../../../constants/paths";
 import { useAuth } from "../../../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
+
 
 const Login = () => {
-
-    const { login } = useAuth();
-
+    const navigate = useNavigate();
+    const { login, errors, isLoggedIn } = useAuth();
     const [formData, setFormData] = useState({
         text: "",
         password: ""
     });
 
-    const [errors, setErrors] = useState(false);
+    useEffect(() => {
+        // Esta función se ejecutará cada vez que isLoggedIn cambie
+        if (isLoggedIn) {
+            navigate(BASE_PATH);
+        }
+    }, [isLoggedIn, navigate]);
+
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -27,14 +34,12 @@ const Login = () => {
     };
 
     //TODO hacer funcion he olvidado contraseña 
-    const submit = (e) => {
+    const submit =  (e) => {
         e.preventDefault();
-
         let user = formData.text;
         let pass = formData.password;
-
-
         login(user, pass)
+
 
     };
 

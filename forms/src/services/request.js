@@ -49,16 +49,17 @@ export function del(path) {
         })
 }
 
-export function checkToken(path, credentials) {
+export function checkToken(path, data) {
 
-    return fetch(`${path} `, {
+    console.log("credeniciales " + data.username, +" "+ data.password)
+    return fetch(path, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            username: credentials.username,
-            password: credentials.password
+            username: data.username,
+            password: data.password
         }),
         credentials: 'include',
     });
