@@ -17,6 +17,7 @@ export async function get(path) {
 }
 
 export function post(path, data) {
+    console.log(data)
     return fetch(BASE_URL + path, {
         method: 'POST',
         headers: {
@@ -51,15 +52,14 @@ export function del(path) {
 
 export function checkToken(path, data) {
 
-    console.log("credeniciales " + data.username, +" "+ data.password)
     return fetch(path, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            username: data.username,
-            password: data.password
+            ...data
+
         }),
         credentials: 'include',
     });

@@ -4,11 +4,12 @@ import './singin.css'
 import { LOGIN } from "../../../constants/paths"
 import { get, post } from "../../../services/request"
 import { toast } from "react-toastify"
+import CryptoJS from "crypto-js"
+
 
 const SingIn = () => {
 
     //const [errors, setErrors] = useState(false);
-
     const [formData, setFormData] = useState({
         nombre: "",
         apellidos: "",
@@ -28,8 +29,19 @@ const SingIn = () => {
     };
 
 
-    const handleSubmit = (data) => {
-        post('/users', data).then(response => {
+    const handleSubmit = (e) => {
+        //TODO hacer validaciones
+        e.preventDefault();
+        console.log(formData.password)
+        let newData = {
+            username: formData.nombre,
+            mail: formData.correo,
+            password: CryptoJS.SHA256(formData.contraseña + '-.@#').toString()
+        }
+
+
+
+        post('/users', newData).then(response => {
             if (!response.ok) {
                 throw new Error(`Error al hacer la solicitud: ${response.statusText}`);
             }

@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { BASE_PATH, SINGIN } from "../../../constants/paths";
 import { useAuth } from "../../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
+import CryptoJS from "crypto-js";
 
 
 const Login = () => {
@@ -34,10 +35,12 @@ const Login = () => {
     };
 
     //TODO hacer funcion he olvidado contraseña 
-    const submit =  (e) => {
+    const submit = (e) => {
         e.preventDefault();
+        console.log(formData.password)
         let user = formData.text;
-        let pass = formData.password;
+        let pass = CryptoJS.SHA256(formData.password + '-.@#').toString();
+        console.log(pass)
         login(user, pass)
 
 

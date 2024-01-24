@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { checkToken } from '../services/request';
 import { BASE_URL } from '../constants/constants';
-
+import CryptoJS from 'crypto-js';
 
 
 //crear el contexto
@@ -16,13 +16,16 @@ export const AuthProvider = ({ children }) => {
         if (localStorage.getItem('accessToken')) {
             setLoggedIn(true)
         }
-    },[])
+    }, [])
 
 
-
+    const encryt = (data) => {
+        return CryptoJS.SHA256(data + '-.@#')
+    }
 
     async function login(name, pass) {
-        //Preguntar por que no puedo almacenar las credenciales en estados 
+        pass = encryt(pass);
+
         const credentials = {
             username: name,
             password: pass
@@ -35,7 +38,6 @@ export const AuthProvider = ({ children }) => {
                 const accessToken = await response.text();
                 // Guardar el token de manera segura en localStorage
                 localStorage.setItem('accessToken', accessToken);
-
                 setLoggedIn(true);
             } else {
                 setErrors(true);
@@ -65,6 +67,9 @@ export const AuthProvider = ({ children }) => {
         login,
         logout,
     };
+
+
+
 
     return (
         <AuthContext.Provider value={authContextValue}>
