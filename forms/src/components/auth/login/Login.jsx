@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import './login.css'
-
 import { APPLE_ICON, GOOGLE_ICON } from "../../../constants/icons"
 import { Link } from "react-router-dom";
 import { BASE_PATH, SINGIN } from "../../../constants/paths";
 import { useAuth } from "../../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import CryptoJS from "crypto-js";
+import Hex from "crypto-js/enc-hex";
+
+
 
 
 const Login = () => {
@@ -37,13 +39,9 @@ const Login = () => {
     //TODO hacer funcion he olvidado contraseña 
     const submit = (e) => {
         e.preventDefault();
-        console.log(formData.password)
         let user = formData.text;
-        let pass = CryptoJS.SHA256(formData.password + '-.@#').toString();
-        console.log(pass)
-        login(user, pass)
-
-
+        const hexEnc = Hex.stringify(CryptoJS.SHA256(formData.password + '-.@#'));
+        login(user, hexEnc)
     };
 
     return (

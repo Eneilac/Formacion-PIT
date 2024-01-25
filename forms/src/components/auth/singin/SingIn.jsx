@@ -5,6 +5,7 @@ import { LOGIN } from "../../../constants/paths"
 import { get, post } from "../../../services/request"
 import { toast } from "react-toastify"
 import CryptoJS from "crypto-js"
+import Hex from "crypto-js/enc-hex"
 
 
 const SingIn = () => {
@@ -29,14 +30,16 @@ const SingIn = () => {
     };
 
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e) => {   
         //TODO hacer validaciones
         e.preventDefault();
-        console.log(formData.password)
+        const hexEnc = Hex.stringify(CryptoJS.SHA256(formData.password + '-.@#'));
+
+
         let newData = {
             username: formData.nombre,
             mail: formData.correo,
-            password: CryptoJS.SHA256(formData.contraseña + '-.@#').toString()
+            password: hexEnc 
         }
 
 

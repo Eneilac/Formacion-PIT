@@ -1,7 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { checkToken } from '../services/request';
 import { BASE_URL } from '../constants/constants';
-import CryptoJS from 'crypto-js';
 
 
 //crear el contexto
@@ -19,12 +18,7 @@ export const AuthProvider = ({ children }) => {
     }, [])
 
 
-    const encryt = (data) => {
-        return CryptoJS.SHA256(data + '-.@#')
-    }
-
     async function login(name, pass) {
-        pass = encryt(pass);
 
         const credentials = {
             username: name,
@@ -54,6 +48,13 @@ export const AuthProvider = ({ children }) => {
         setLoggedIn(false);
         localStorage.removeItem('accessToken');
     };
+
+
+
+    // TODO mover peticiones register al contexto de autContext
+    const register = () => {
+
+    }
 
 
 
