@@ -1,6 +1,6 @@
-const getUserLogin = state => state.loginState.login;
+const getAccessToken = state => state.authState.accessToken;
 
 
 export {
-    getUserLogin
+    getAccessToken
 }

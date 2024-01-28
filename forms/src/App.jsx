@@ -4,6 +4,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import router from './routes/Routes'
 import { ToastContainer } from 'react-toastify';
 import { AuthProvider } from './contexts/AuthContext';
+import { connect } from "react-redux";
+
 
 
 function App() {
@@ -19,4 +21,4 @@ function App() {
   );
 }
 
-export default App;
+export default connect()(App);

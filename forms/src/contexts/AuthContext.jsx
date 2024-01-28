@@ -52,9 +52,9 @@ export const AuthProvider = ({ children }) => {
 
 
     // TODO mover peticiones register al contexto de autContext
-    const register = () => {
+    //     const register = () => {
 
-    }
+  // }
 
 
 
