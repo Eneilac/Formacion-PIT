@@ -1,18 +1,27 @@
 import { Link } from "react-router-dom"
 import './header.css'
 import { BASE_PATH, LOGIN, USER } from "../../constants/paths"
-import { useAuth } from "../../contexts/AuthContext";
 import { jwtDecode } from "jwt-decode";
+import React, { useState, useEffect } from "react";
+import { logout } from "../../services/auth";
+import { connect } from "react-redux";
+import { setLoggedIn } from "../../redux/actions/login.actions";
 
 
-function Header() {
+function Header(props) {
+    const [username, setUsername] = useState('');
 
-    const { isLoggedIn, logout } = useAuth();
-    let username = null;
-    if (isLoggedIn) {
-        username = jwtDecode(localStorage.getItem('accessToken')).sub
-    }
-
+    useEffect(() => {
+        const userIsLoggedIn = props.isLoggedIn;
+    
+        if (!userIsLoggedIn && localStorage.getItem('accessToken')) {
+          props.dispatch(setLoggedIn(true));
+        }
+    
+        if (props.isLoggedIn) {
+          setUsername(jwtDecode(localStorage.getItem('accessToken')).sub);
+        }
+      }, [props.isLoggedIn, props.dispatch]);
 
     return (
         <nav className="header">
@@ -23,14 +32,22 @@ function Header() {
             </div>
             <div className="enlaces">
                 {username ? <div>Bienvenido {username}</div> : null}
-                {isLoggedIn ? <div><Link to={USER}>Gestión</Link></div> : null}
-                {!isLoggedIn ? <div><Link to={LOGIN}>Iniciar sesion</Link></div> : null}
-                {isLoggedIn ? <div><Link to={BASE_PATH} onClick={logout}>Cerrar sesion</Link></div> : null}
-            </div>
+                {props.isLoggedIn ? <div><Link to={USER}>Gestión</Link></div> : null}
+                {!props.isLoggedIn ? <div><Link to={LOGIN}>Iniciar sesion</Link></div> : null}
+                {props.isLoggedIn ? <div><Link to={BASE_PATH} onClick={() => logout()}>Cerrar sesión</Link></div> : null}            </div>
         </nav>
     )
 
 }
 
+const mapStateToProps = (state) => {
+    const loginState = state.login || {};
 
-export default Header
+    return {
+        isLoggedIn: loginState.isLoggedIn || false,
+        user: loginState.user || null,
+        error: loginState.error || null,
+    };
+};
+
+export default connect(mapStateToProps)(Header);

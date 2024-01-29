@@ -22,7 +22,7 @@ const applyGetLoginStarted = (state, action) => ({
 const applyGetLoginSuccess = (state, action) => ({
     ...state,
     user: action.payload.loginInfo || localStorage.getItem("accessToken"),
-    isLoggedIn: false
+    isLoggedIn: true
 })
 
 

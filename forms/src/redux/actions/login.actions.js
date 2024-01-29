@@ -21,12 +21,18 @@ const loginActionRequestFailed = (error) => ({
     type: LOGIN_ACTION_REQUEST_FAILED,
 })
 
-
+const setLoggedIn = (isLoggedIn) => {
+    return {
+        type: 'SET_LOGGED_IN',
+        payload: isLoggedIn,
+    };
+};
 
 
 export {
     loginActionRequestStarted,
     loginActionRequestSuccess,
-    loginActionRequestFailed
+    loginActionRequestFailed,
+    setLoggedIn
 }
 

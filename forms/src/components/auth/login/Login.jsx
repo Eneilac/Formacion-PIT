@@ -3,58 +3,88 @@ import './login.css'
 import { APPLE_ICON, GOOGLE_ICON } from "../../../constants/icons"
 import { Link } from "react-router-dom";
 import { BASE_PATH, SINGIN } from "../../../constants/paths";
-import { useAuth } from "../../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import CryptoJS from "crypto-js";
 import Hex from "crypto-js/enc-hex";
+import { connect } from "react-redux";
+import { getAccessToken } from "../../../redux/selectors/login.selector";
+import { loginActionRequestFailed, loginActionRequestStarted, loginActionRequestSuccess } from "../../../redux/actions/login.actions";
+import { isLoggedIn, login } from "../../../services/auth";
 
 
 
 
-const Login = () => {
+
+const Login = (props) => {
+    //hooks 
+    const [logged, setLogged] = useState(false);
+
+
+
+
     const navigate = useNavigate();
-    const { login, errors, isLoggedIn } = useAuth();
+
     const [formData, setFormData] = useState({
         text: "",
         password: ""
     });
+    const [errors, setErrors] = useState(false);
+
+
 
     useEffect(() => {
-        // Esta función se ejecutará cada vez que isLoggedIn cambie
-        if (isLoggedIn) {
+        const userIsLoggedIn = isLoggedIn();
+        setLogged(userIsLoggedIn);
+
+        if (userIsLoggedIn) {
             navigate(BASE_PATH);
         }
-    }, [isLoggedIn, navigate]);
+    }, [logged, navigate]);
 
+
+
+    const submit = (e) => {
+        e.preventDefault();
+        const hexEnc = Hex.stringify(CryptoJS.SHA256(formData.password + '-.@#'));
+        const loginUser = {
+            username: formData.text,
+            password: hexEnc
+        }
+
+        props.onLoadLoginStarted(loginUser);
+        login(loginUser).then((accessToken) => {
+
+            props.onLoadLoginSuccess(accessToken);
+            localStorage.setItem('accessToken', accessToken.data);
+            setLogged(true)
+
+        }).catch(error => {
+            setErrors(error)
+            props.onLoadLoginFailed(error);
+        });
+    }
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        // Actualiza el estado del formulario al cambiar los campos
         setFormData({
             ...formData,
             [name]: value
         });
     };
 
-    //TODO hacer funcion he olvidado contraseña 
-    const submit = (e) => {
-        e.preventDefault();
-        let user = formData.text;
-        const hexEnc = Hex.stringify(CryptoJS.SHA256(formData.password + '-.@#'));
-        login(user, hexEnc)
-    };
 
     return (
         <div className="form-container">
             <p className="title">Bienvenido</p>
-            <form className="form" onSubmit={submit}>
 
+            <form className="form" onSubmit={submit}>
                 <input
                     type="text"
                     className={`input ${errors ? 'error' : ''}`}
                     placeholder="Usuario"
                     name="text"
                     onChange={handleChange}
+                    required
                 />
 
                 <input
@@ -63,6 +93,7 @@ const Login = () => {
                     placeholder="Contraseña"
                     name="password"
                     onChange={handleChange}
+                    required
                 />
                 {errors && <p className="error-message">Uno de los campos introducidos no es correcto</p>}
                 <p className="page-link">
@@ -70,6 +101,8 @@ const Login = () => {
                 </p>
                 <button className="form-btn">Iniciar sesión</button>
             </form>
+
+
             <p className="sign-up-label">
                 ¿No estas registrado? <span className="sign-up-link"><Link to={SINGIN}> Registrarse</Link></span>
             </p>
@@ -87,4 +120,23 @@ const Login = () => {
     );
 }
 
-export default Login;
+
+
+const mapStateToProps = (state) => {
+    const loginState = state.login || {};
+
+    return {
+        isLoggedIn: loginState.isLoggedIn || false,
+        user: loginState.user || null,
+        error: loginState.error || null,
+    };
+};
+
+
+const mapDispatchToProps = (dispatch) => ({
+    onLoadLoginStarted: (loginUser) => dispatch(loginActionRequestStarted(loginUser)),
+    onLoadLoginSuccess: (accessToken) => dispatch(loginActionRequestSuccess(accessToken)),
+    onLoadLoginFailed: (error) => dispatch(loginActionRequestFailed(error)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
