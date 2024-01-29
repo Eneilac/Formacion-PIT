@@ -15,7 +15,7 @@ const INITIAL_STATE = {
 const applyGetLoginStarted = (state, action) => ({
     ...state,
     user: action.payload.loginStarted || null,
-    isLoggedIn: true
+    isLoggedIn: false
 })
 
 

@@ -15,14 +15,6 @@ export const logout = () => {
 }
 
 
-export const isLoggedIn = () => {
-    if (localStorage.getItem('accessToken') !== null) {
-        return true
-    }
-    return false;
-}
-
-
 
 
 

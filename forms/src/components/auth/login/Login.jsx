@@ -7,9 +7,9 @@ import { useNavigate } from "react-router-dom";
 import CryptoJS from "crypto-js";
 import Hex from "crypto-js/enc-hex";
 import { connect } from "react-redux";
-import { getAccessToken } from "../../../redux/selectors/login.selector";
 import { loginActionRequestFailed, loginActionRequestStarted, loginActionRequestSuccess } from "../../../redux/actions/login.actions";
-import { isLoggedIn, login } from "../../../services/auth";
+import { login } from "../../../services/auth";
+import { getAccessToken } from "../../../redux/selectors/login.selector";
 
 
 
@@ -18,12 +18,7 @@ import { isLoggedIn, login } from "../../../services/auth";
 const Login = (props) => {
     //hooks 
     const [logged, setLogged] = useState(false);
-
-
-
-
     const navigate = useNavigate();
-
     const [formData, setFormData] = useState({
         text: "",
         password: ""
@@ -33,14 +28,18 @@ const Login = (props) => {
 
 
     useEffect(() => {
-        const userIsLoggedIn = isLoggedIn();
-        setLogged(userIsLoggedIn);
+        console.log(props.isLoggedIn)
 
-        if (userIsLoggedIn) {
+        if (props.isLoggedIn) {
+            console.log(props.isLoggedIn)
             navigate(BASE_PATH);
+            setLogged(true)
         }
-    }, [logged, navigate]);
+    }, [logged, navigate, props]);
 
+    useEffect (() => {
+        console.log(props.accessToken)
+    },[props.accessToken])
 
 
     const submit = (e) => {
@@ -54,7 +53,7 @@ const Login = (props) => {
         props.onLoadLoginStarted(loginUser);
         login(loginUser).then((accessToken) => {
 
-            props.onLoadLoginSuccess(accessToken);
+            props.onLoadLoginSuccess(accessToken.data);
             localStorage.setItem('accessToken', accessToken.data);
             setLogged(true)
 
@@ -122,15 +121,11 @@ const Login = (props) => {
 
 
 
-const mapStateToProps = (state) => {
-    const loginState = state.login || {};
-
-    return {
-        isLoggedIn: loginState.isLoggedIn || false,
-        user: loginState.user || null,
-        error: loginState.error || null,
-    };
-};
+const mapStateToProps = (state) => ({
+    accessToken: getAccessToken(state),
+    isLoading: state.loginState.isLoading,
+    error: state.loginState.error,
+});
 
 
 const mapDispatchToProps = (dispatch) => ({

@@ -1,27 +1,33 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import './header.css'
 import { BASE_PATH, LOGIN, USER } from "../../constants/paths"
 import { jwtDecode } from "jwt-decode";
 import React, { useState, useEffect } from "react";
 import { logout } from "../../services/auth";
 import { connect } from "react-redux";
-import { setLoggedIn } from "../../redux/actions/login.actions";
+import { loginActionRequestSuccess } from "../../redux/actions/login.actions";
+
 
 
 function Header(props) {
     const [username, setUsername] = useState('');
+    const [logged, setLogged] = useState(false);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
-        const userIsLoggedIn = props.isLoggedIn;
-    
-        if (!userIsLoggedIn && localStorage.getItem('accessToken')) {
-          props.dispatch(setLoggedIn(true));
+        if (localStorage.getItem('accessToken') !== null) {
+            props.onLoadLoginSuccess(localStorage.getItem('accessToken'))
+            setUsername(jwtDecode(localStorage.getItem('accessToken')).sub);
+            setLogged(true)
+        } else {
+            navigate('/login')
         }
-    
-        if (props.isLoggedIn) {
-          setUsername(jwtDecode(localStorage.getItem('accessToken')).sub);
-        }
-      }, [props.isLoggedIn, props.dispatch]);
+    }, [logged, props, navigate]);
+
+    useEffect (() => {
+        console.log(props.accessToken)
+    },[props.accessToken])
 
     return (
         <nav className="header">
@@ -32,13 +38,14 @@ function Header(props) {
             </div>
             <div className="enlaces">
                 {username ? <div>Bienvenido {username}</div> : null}
-                {props.isLoggedIn ? <div><Link to={USER}>Gestión</Link></div> : null}
-                {!props.isLoggedIn ? <div><Link to={LOGIN}>Iniciar sesion</Link></div> : null}
-                {props.isLoggedIn ? <div><Link to={BASE_PATH} onClick={() => logout()}>Cerrar sesión</Link></div> : null}            </div>
+                {logged ? <div><Link to={USER}>Gestión</Link></div> : null}
+                {!logged ? <div><Link to={LOGIN}>Iniciar sesion</Link></div> : null}
+                {logged ? <div><Link to={BASE_PATH} onClick={() => logout()}>Cerrar sesión</Link></div> : null}            </div>
         </nav>
     )
 
 }
+
 
 const mapStateToProps = (state) => {
     const loginState = state.login || {};
@@ -50,4 +57,9 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps)(Header);
+
+const mapDispatchToProps = (dispatch) => ({
+    onLoadLoginSuccess: (accessToken) => dispatch(loginActionRequestSuccess(accessToken)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
