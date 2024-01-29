@@ -28,18 +28,11 @@ const Login = (props) => {
 
 
     useEffect(() => {
-        console.log(props.isLoggedIn)
-
         if (props.isLoggedIn) {
-            console.log(props.isLoggedIn)
             navigate(BASE_PATH);
             setLogged(true)
         }
     }, [logged, navigate, props]);
-
-    useEffect (() => {
-        console.log(props.accessToken)
-    },[props.accessToken])
 
 
     const submit = (e) => {
@@ -124,6 +117,7 @@ const Login = (props) => {
 const mapStateToProps = (state) => ({
     accessToken: getAccessToken(state),
     isLoading: state.loginState.isLoading,
+    isLoggedIn: state.loginState.isLoggedIn,
     error: state.loginState.error,
 });
 

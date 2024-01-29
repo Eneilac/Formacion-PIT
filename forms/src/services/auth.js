@@ -10,9 +10,6 @@ export const login = (loginUser) => {
 }
 
 
-export const logout = () => {
-    localStorage.removeItem('accessToken')
-}
 
 
 

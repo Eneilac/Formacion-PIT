@@ -1,4 +1,4 @@
-const getAccessToken = state => state.loginState.accessToken;
+const getAccessToken = state => state.loginState.user;
 
 
 export {
