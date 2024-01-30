@@ -39,7 +39,7 @@ function Header(props) {
                 </Link>
             </div>
             <div className="enlaces">
-                {username ? <div>Bienvenido {username}</div> : null}
+                {props.isLoggedIn && username ? <div>Bienvenido {username}</div> : null}
                 {props.isLoggedIn ? <div><Link to={USER}>Gestión</Link></div> : null}
                 {!props.isLoggedIn ? <div><Link to={LOGIN}>Iniciar sesion</Link></div> : null}
                 {props.isLoggedIn ? <div><Link to={BASE_PATH} onClick={onLogout} >Cerrar sesión</Link></div> : null}            </div>

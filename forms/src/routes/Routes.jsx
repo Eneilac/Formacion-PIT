@@ -5,9 +5,8 @@ import { BASE_PATH, EVERYTHIK_PATH, LOGIN, SINGIN, USER } from "../constants/pat
 import { Error404 } from "../components/errorpages/Error404";
 import { Home } from "../scenes/home/Home";
 import { User } from "../components/user/User";
-import Login from "../components/auth/login/Login";
-import SingIn from "../components/auth/singin/SingIn";
-
+import Login from "../scenes/auth/login/Login";
+import Register from "../scenes/auth/register/Register";
 
 
 
@@ -30,7 +29,7 @@ const router = createBrowserRouter(
                 },
                 {
                     path: SINGIN,
-                    element: <SingIn />
+                    element: <Register />
                 }
             ]
         },

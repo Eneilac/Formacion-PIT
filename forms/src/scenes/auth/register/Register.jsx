@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { Link } from "react-router-dom"
-import './singin.css'
+import './register.css'
 import { LOGIN } from "../../../constants/paths"
 import { get, post } from "../../../services/request"
 import { toast } from "react-toastify"
@@ -8,7 +8,7 @@ import CryptoJS from "crypto-js"
 import Hex from "crypto-js/enc-hex"
 
 
-const SingIn = () => {
+const Register = () => {
 
     //const [errors, setErrors] = useState(false);
     const [formData, setFormData] = useState({
@@ -30,7 +30,7 @@ const SingIn = () => {
     };
 
 
-    const handleSubmit = (e) => {   
+    const handleSubmit = (e) => {
         //TODO hacer validaciones
         e.preventDefault();
         const hexEnc = Hex.stringify(CryptoJS.SHA256(formData.password + '-.@#'));
@@ -39,7 +39,7 @@ const SingIn = () => {
         let newData = {
             username: formData.nombre,
             mail: formData.correo,
-            password: hexEnc 
+            password: hexEnc
         }
 
 
@@ -119,7 +119,6 @@ const SingIn = () => {
                     className="input"
                     name="correo2"
                     onChange={handleChange}
-
                 />
             </label>
 
@@ -152,4 +151,4 @@ const SingIn = () => {
     )
 }
 
-export default SingIn;
+export default Register;
