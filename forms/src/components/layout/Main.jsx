@@ -1,12 +1,9 @@
-import { Outlet } from "react-router-dom";
+    import { Outlet } from "react-router-dom";
 import Header from "../header/Header";
 import './main.css';
-import Footer from "../footer/Footer";
+//import Footer from "../footer/Footer";
 
 function Main() {
-
-
-    
     return (
         <section className="layout">
             <div className="header">
@@ -14,9 +11,6 @@ function Main() {
             </div>
             <div className="main">
                 <Outlet />
-            </div>
-            <div className="footer">
-                <Footer />
             </div>
         </section>
     );

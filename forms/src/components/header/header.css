@@ -9,16 +9,17 @@ nav {
     color: white;
     justify-content: space-between;
     margin-bottom: 15px;
+    width: 100vw;
 }
 
 nav .enlaces {
     display: flex;
     justify-items: flex-end;
-    gap: 9px;
+    padding: 0 35px;
 }
 
 .enlaces div {
-    padding: 4px;
+    padding:0 15px;
 }
 
 nav a {

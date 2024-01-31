@@ -16,8 +16,8 @@ const Register = () => {
     const [anyError, setAnyError] = useState(false);
 
     //TODO: Terminar las validaciones
-    const [validUser, setValidUser] = useState(true);
-    const [validPass, setValidPass] = useState(true);
+  //  const [validUser, setValidUser] = useState(true);
+   // const [validPass, setValidPass] = useState(true);
   
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
@@ -123,7 +123,6 @@ const Register = () => {
                     className="input"
                     name="nombre"
                     onChange={handleChange}
-                    pattern={USER_VALIDATE}
                 />
 
             </label>
@@ -159,7 +158,6 @@ const Register = () => {
                     className="input"
                     name="password"
                     onChange={handleChange}
-                    pattern={PASSWORD_VALIDATE}
                 />
             </label>
             <label>
@@ -170,7 +168,6 @@ const Register = () => {
                     className="input"
                     name="password2"
                     onChange={handleChange}
-                    pattern={PASSWORD_VALIDATE}
                 />
                 {passErrors ? <p className="error-text">Las contraseñas no coinciden.</p> : null}
 

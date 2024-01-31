@@ -19,6 +19,7 @@ const applyGetLoginStarted = (state, action) => ({
     user: action.payload.loginStarted || null,
     isLoggedIn: false,
     isLoading: true,
+    error: action.error
 })
 
 
@@ -26,7 +27,8 @@ const applyGetLoginSuccess = (state, action) => ({
     ...state,
     user: action.payload.loginInfo || localStorage.getItem("accessToken"),
     isLoggedIn: true,
-    isLoading: false
+    isLoading: false,
+    error: action.error
 
 })
 
@@ -35,7 +37,7 @@ const applyGetLoginFailed = (state, action) => ({
     user: null,
     isLoggedIn: false,
     isLoading: false,
-    error: action.payload.error
+    error: action.payload
 })
 
 const applyLogout = (state, action) => ({
@@ -43,6 +45,7 @@ const applyLogout = (state, action) => ({
     user: null,
     isLoggedIn: false,
     isLoading: false,
+    error: null
 })
 
 

@@ -7,8 +7,7 @@ import { useNavigate } from "react-router-dom";
 import CryptoJS from "crypto-js";
 import Hex from "crypto-js/enc-hex";
 import { connect } from "react-redux";
-import { loginActionRequestFailed, loginActionRequestStarted, loginActionRequestSuccess } from "../../../redux/actions/login.actions";
-import { login } from "../../../services/auth";
+import { loginActionRequestStarted, } from "../../../redux/actions/login.actions";
 import { getAccessToken } from "../../../redux/selectors/login.selector";
 
 
@@ -23,7 +22,6 @@ const Login = (props) => {
         text: "",
         password: ""
     });
-    const [errors, setErrors] = useState(false);
 
 
 
@@ -44,16 +42,6 @@ const Login = (props) => {
         }
 
         props.onLoadLoginStarted(loginUser);
-        login(loginUser).then((accessToken) => {
-
-            props.onLoadLoginSuccess(accessToken.data);
-            localStorage.setItem('accessToken', accessToken.data);
-            setLogged(true)
-
-        }).catch(error => {
-            setErrors(error)
-            props.onLoadLoginFailed(error);
-        });
     }
 
     const handleChange = (e) => {
@@ -72,7 +60,7 @@ const Login = (props) => {
             <form className="form" onSubmit={submit}>
                 <input
                     type="text"
-                    className={`input ${errors ? 'error' : ''}`}
+                    className={`input ${props.error ? 'error' : ''}`}
                     placeholder="Usuario"
                     name="text"
                     onChange={handleChange}
@@ -81,13 +69,13 @@ const Login = (props) => {
 
                 <input
                     type="password"
-                    className={`input ${errors ? 'error' : ''}`}
+                    className={`input ${props.error ? 'error' : ''}`}
                     placeholder="Contraseña"
                     name="password"
                     onChange={handleChange}
                     required
                 />
-                {errors && <p className="error-message">Uno de los campos introducidos no es correcto</p>}
+                {props.error && <p className="error-message">Uno de los campos introducidos no es correcto</p>}
                 <p className="page-link">
                     <span className="page-link-label">He olvidado mi contraseña</span>
                 </p>
@@ -124,8 +112,6 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     onLoadLoginStarted: (loginUser) => dispatch(loginActionRequestStarted(loginUser)),
-    onLoadLoginSuccess: (accessToken) => dispatch(loginActionRequestSuccess(accessToken)),
-    onLoadLoginFailed: (error) => dispatch(loginActionRequestFailed(error)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
