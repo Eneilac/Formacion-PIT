@@ -54,10 +54,10 @@ const Login = (props) => {
 
 
     return (
-        <div className="form-container">
+        <div className="formLogin-container">
             <p className="title">Bienvenido</p>
 
-            <form className="form" onSubmit={submit}>
+            <form className="formLogin" onSubmit={submit}>
                 <input
                     type="text"
                     className={`input ${props.error ? 'error' : ''}`}
@@ -79,7 +79,7 @@ const Login = (props) => {
                 <p className="page-link">
                     <span className="page-link-label">He olvidado mi contraseña</span>
                 </p>
-                <button className="form-btn">Iniciar sesión</button>
+                <button className="formLogin-btn">Iniciar sesión</button>
             </form>
 
 

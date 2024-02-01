@@ -2,23 +2,24 @@ import React, { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import './register.css'
 import { LOGIN } from "../../../constants/paths"
-import { post } from "../../../services/request"
 import { toast } from "react-toastify"
 import CryptoJS from "crypto-js"
 import Hex from "crypto-js/enc-hex"
-import { PASSWORD_VALIDATE, USER_VALIDATE } from "../../../constants/constants"
+import { connect } from "react-redux"
+import { registerActionRequestStarted } from "../../../redux/actions/register.action"
+//import { PASSWORD_VALIDATE, USER_VALIDATE } from "../../../constants/constants"
 
 
-const Register = () => {
+const Register = (props) => {
     //*Hooks
     const [passErrors, setPassError] = useState(false);
     const [emailErrors, setEmailErrors] = useState(false);
     const [anyError, setAnyError] = useState(false);
 
     //TODO: Terminar las validaciones
-  //  const [validUser, setValidUser] = useState(true);
-   // const [validPass, setValidPass] = useState(true);
-  
+    //  const [validUser, setValidUser] = useState(true);
+    // const [validPass, setValidPass] = useState(true);
+
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         nombre: "",
@@ -34,8 +35,18 @@ const Register = () => {
     }, [formData.password, formData.password2, formData.correo, formData.correo2]);
 
     useEffect(() => {
-        setAnyError(passErrors || emailErrors);
-    }, [emailErrors, passErrors]);
+        setAnyError(passErrors || emailErrors || props.error);
+    }, [emailErrors, passErrors, props.error]);
+
+    useEffect(() => {
+        console.log(props.isRegisted)
+        if (props.isRegisted) {
+            navigate(LOGIN)
+            toast.info('Usuario registrado con exito')
+        } else if (props.error) {
+            toast.error('Ha ocurrido un error con el registro')
+        }
+    }, [props.isRegisted])
 
 
     /**
@@ -53,9 +64,6 @@ const Register = () => {
         if (name === 'password' || name === 'password2') {
             checkPasswordsMatch(formData.password, formData.password2);
         }
-
-
-
     };
 
     /**
@@ -92,26 +100,13 @@ const Register = () => {
             mail: formData.correo,
             password: hexEnc
         }
-
-        //* Petición para registrar el usuario
-        post('/users', newData).then(response => {
-            if (!response.ok) {
-                throw new Error(`Error al hacer la solicitud: ${response.statusText}`);
-            }
-            return response.json();
-        }).then(() => {
-            toast.info('¡Bienvenido ' + newData.username);
-            navigate(LOGIN)
-        }).catch(error => {
-            console.error(error);
-            toast.error("Error al registrarte, intentalo de nuevo mas tarde.");
-            throw error;
-        })
+        props.onLoadRegisterStarted(newData);
     }
+
 
     //* renderizado
     return (
-        <form className="form" onSubmit={handleSubmit}>
+        <form className="formRegister" onSubmit={handleSubmit}>
             <p className="title">Registro </p>
             <p className="message">Un paso mas cerca del futuro </p>
 
@@ -124,7 +119,6 @@ const Register = () => {
                     name="nombre"
                     onChange={handleChange}
                 />
-
             </label>
 
             <label>
@@ -172,10 +166,21 @@ const Register = () => {
                 {passErrors ? <p className="error-text">Las contraseñas no coinciden.</p> : null}
 
             </label>
-            <button className={anyError ? 'submit anyError' : 'submit'} disabled={anyError} >Aceptar</button>
+            <button className={anyError ? 'submit anyError' : 'submit'} >Aceptar</button>
             <p className="signin">¿Ya tienes una cuenta? <Link to={LOGIN}>Iniciar sesion</Link> </p>
         </form>
     )
 }
 
-export default Register;
+const mapStateToProps = (state) => ({
+    isLoading: state.registerState.isLoading,
+    isRegisted: state.registerState.isRegisted,
+    error: state.registerState.error,
+});
+
+
+const mapDispatchToProps = (dispatch) => ({
+    onLoadRegisterStarted: (data) => dispatch(registerActionRequestStarted(data)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Register);

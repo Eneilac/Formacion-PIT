@@ -1,9 +1,11 @@
-.form {
+.formRegister {
   display: flex;
   flex-direction: column;
   gap: 10px;
   max-width: 450px;
-  background-color: #fff;
+  background: rgba(0, 0, 0, 0.116);
+  backdrop-filter: blur(200px);
+  box-shadow: rgba(0, 0, 0, 0.589) 0px 15px 25px;
   padding: 20px;
   border-radius: 20px;
   position: relative;
@@ -44,7 +46,7 @@
 }
 
 .message, .signin {
-  color: rgba(88, 87, 87, 0.822);
+  color: rgba(209, 209, 209, 0.822);
   font-size: 14px;
 }
 
@@ -60,11 +62,11 @@
   text-decoration: underline royalblue;
 }
 
-.form label {
+.formRegister label {
   position: relative;
 }
 
-.form label .input {
+.formRegister label .input {
   width: 100%;
   padding: 10px 10px 20px 10px;
   outline: 0;
@@ -73,12 +75,12 @@
 }
 
 
-.form label .input:placeholder-shown+span {
+.formRegister label .input:placeholder-shown+span {
   top: 15px;
   font-size: 0.9em;
 }
 
-.form label .input:focus+span, .form label .input:valid+span {
+.formRegister label .input:focus+span, .formRegister label .input:valid+span {
   top: 30px;
   font-size: 0.7em;
   font-weight: 600;

@@ -3,10 +3,10 @@ import Main from '../components/layout/Main';
 import { createBrowserRouter } from "react-router-dom";
 import { BASE_PATH, EVERYTHIK_PATH, LOGIN, SINGIN, USER } from "../constants/paths";
 import { Error404 } from "../components/errorpages/Error404";
-import { Home } from "../scenes/home/Home";
+import { Home } from "../views/home/Home";
 import { User } from "../components/user/User";
-import Login from "../scenes/auth/login/Login";
-import Register from "../scenes/auth/register/Register";
+import Login from "../views/auth/login/Login";
+import Register from "../views/auth/register/Register";
 
 
 
