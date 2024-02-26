@@ -1,12 +1,13 @@
 import styled from "styled-components";
 
 
-
-const Card = () => {
+//*TODO HAZ UNA PETICION QUE TE TRAIGA LA IMAGEN DEL BACKEND EN UN DIRECTORIO
+const Card = (props) => {
 
     return (
         <Container>
             <div className="card">
+              
                 <div className="card-inner"></div>
             </div>
         </Container>

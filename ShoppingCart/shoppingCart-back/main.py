@@ -1,60 +1,33 @@
-from Carrito import Carrito
+from flask import Flask, redirect, url_for
+from flask_jwt_extended import JWTManager
 
 
-def menu():
-    print('Bienvenido seleccione una opción\n'
-          '1- Añadir item al carrito\n'
-          '2- Mostrar items del carrito\n'
-          '3- Eliminar item del carrito\n'
-          '4- Calcular total del carrito\n'
-          '5- Vaciar carrito\n'
-          '6- Salir\n')
+from blueprint.item import blueprint as item_blueprint
+from flask_cors import CORS, cross_origin
+
+app = Flask(__name__)
+app.register_blueprint(item_blueprint)
+
+
+cors = CORS(app)
+CORS(app, supports_credentials=True, origins=['http://localhost:5173'])
+
+# Configuración del JWT
+app.config['JWT_SECRET_KEY'] = 'cacahuetesEnAlmibar'  # Cambiar esto con una clave secreta segura
+jwt = JWTManager(app)
+
+
+@app.route('/')
+@cross_origin()
+def printSphere():
+    return """
+    """
+
+
+@app.errorhandler(404)
+def not_found_error():
+    return redirect(url_for('printSphere'))
 
 
 if __name__ == '__main__':
-    option = 0
-
-    while option != 6:
-        menu()
-
-        option = int(input('Opción:'))
-        print('\n')
-        cart = Carrito()
-
-        match option:
-            case 1:
-                name = str(input('Nombre del item: '))
-                try:
-                    amount = int(input('Cantidad de items: '))
-                except:
-                    print('Error no has ingresado un valor valido')
-                    break
-                try:
-                    price = int(input('precio del item: '))
-                except:
-                    print('Error no has ingresado un valor valido')
-                    break
-
-                cart.additem(name, amount, price)
-                print('Item creado añadido correctamente\n')
-
-            case 2:
-                cart.showCart()
-            case 3:
-                numItems = cart.cartleng()
-
-                if numItems == 0:
-                    print('El carrito esta vacio\n')
-                else:
-                    name = input('Nombre del item que desea eliminar: ')
-                    cart.deleteItem(name)
-            case 4:
-                total = cart.totalCart()
-                print('total a pagar ' + str(total) + '€')
-            case 5:
-                cart.resetCart()
-                print('carrito vacio\n')
-            case 6:
-                print('Hasta pronto')
-            case _:
-                print('opcion no valida\n')
+    app.run()

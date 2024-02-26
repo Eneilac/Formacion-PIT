@@ -1,0 +1,5 @@
+pymysql
+flask
+flask-cors
+cryptography
+Flask-JWT-Extended
