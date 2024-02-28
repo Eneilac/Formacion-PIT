@@ -8,7 +8,9 @@ export const get = (path) => {
         {
             headers: { "Content-type": "application/json;charset=UTF-8" }
         })
-        .then(response => response.json())
+        .then(response =>{
+            return response.data
+        } )
         .catch(error => {
             console.log(error)
         })

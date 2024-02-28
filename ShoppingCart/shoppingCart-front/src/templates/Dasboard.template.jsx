@@ -1,32 +1,30 @@
 import styled from "styled-components";
 import Card from "../components/Card";
 
-const DashboardTemplate = () => {
+const DashboardTemplate = ({ items, setNumItems, numItems }) => {
+
+
 
     return (
         <Container>
             <section className="dashboard">
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
+
+                {
+                    items && items.map((item, index) => (
+                        <Card
+                            key={index}
+                            item={item}
+                            setNumItems={setNumItems}
+                            numItems={numItems}
+                        />
+                    ))
+                }
             </section>
         </Container>
     )
 }
 
-
 export default DashboardTemplate
-
-
 
 
 const Container = styled.div`
