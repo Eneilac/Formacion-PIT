@@ -1,11 +1,16 @@
 import styled from "styled-components";
 import { RiMoneyEuroCircleLine } from "react-icons/ri";
+import { RiCloseCircleFill } from "react-icons/ri";
 
 
-const Cart = () => {
+
+const Cart = ({ show }) => {
 
     return (
         <Container>
+            <div className="close" onClick={() => { show() }}>
+                <RiCloseCircleFill className="icon" />
+            </div>
             <div className="title">
                 <h2>Carrito de compra</h2>
             </div>
@@ -23,6 +28,7 @@ const Cart = () => {
         </Container>
     )
 }
+
 
 const Container = styled.div`
 background-color: #fff;
@@ -60,5 +66,16 @@ border: 3px solid #ad835cc9;
     cursor: pointer;
 }
 
+.close{
+    display: flex;
+    align-self: flex-end;
+    width: min-content;
+    padding: 0px 2px;
+    cursor: pointer;
+    .icon{
+        font-size: 30px;
+    }
+        color: #27a9dd;
+}
 `
 export default Cart

@@ -5,6 +5,7 @@ import { itemActionRequestStarted } from '../redux/actions'
 import { useEffect, useState } from "react";
 import { TiShoppingCart } from "react-icons/ti";
 import Cart from "../components/Cart";
+import AddItem from "../components/AddItem";
 
 
 const Dashboard = (props) => {
@@ -12,6 +13,7 @@ const Dashboard = (props) => {
     const { onLoadItemStarted } = props;
     const [numItems, setNumItems] = useState(0);
     const [toggleCart, setToggleCart] = useState(false)
+    const [addItem, setAddItem] = useState(false);
 
 
 
@@ -26,18 +28,34 @@ const Dashboard = (props) => {
 
     return (
         <Container>
+
+            {
+                addItem ? <div className="add-items-container">
+                    <div className="addItem">
+                        <AddItem
+                            addItem={addItem}
+                            setAddItem={setAddItem}
+                        />
+                    </div>
+                </div> : ''
+            }
             <DashboardTemplate
                 items={props.item}
                 setNumItems={setNumItems}
                 numItems={numItems}
+                addItem={addItem}
+                setAddItem={setAddItem}
             />
 
-            <div className="buttonCart"  onClick={()=>{show()}}>
+            <div className="buttonCart" onClick={() => { show() }}>
                 {numItems} <TiShoppingCart />
             </div>
 
             <div className={toggleCart ? 'cart' : 'none'}>
-                <Cart />
+                <Cart
+                    show={show}
+
+                />
             </div>
             <div className={toggleCart ? 'filter' : 'none'}>
 
@@ -82,6 +100,27 @@ padding: 5px;
 z-index: 4;
 }
 
+.add-items-container {
+    position: absolute;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+    background: rgba(0,0,0,0.2);
+    backdrop-filter: blur(10px);
+    z-index: 99999!important;
+}
+.addItem{
+    width: fit-content;
+    height: fit-content;
+    padding: 20px;
+    background-color: #59616396;
+}
+
 .cart{
     position: fixed;
     top: 250px;
@@ -101,5 +140,8 @@ z-index: 4;
 .none{
     display: none;
 }
+
+
+
 `
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard)
