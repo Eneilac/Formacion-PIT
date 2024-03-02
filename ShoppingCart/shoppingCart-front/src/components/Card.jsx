@@ -5,17 +5,13 @@ const Card = ({ item, setNumItems, numItems }) => {
 
   return (
     <Container>
-      <div className="card">
-        <div className="card-img"><div className="img"></div></div>
-        <div className="card-title">{item?.name}</div>
-        <div className="card-subtitle">{item?.description}</div>
-        <hr className="card-divider" />
-        <div className="card-footer">
-          <div className="card-price"><span>€</span>{item?.price} </div>
-          <button className="card-btn" onClick={() => { setNumItems(numItems + 1) }}>
-            {icon()}
-          </button>
+      <div className="producto">
+        <img className="producto__imagen" src={item.image_url} alt="imagen camisa" />
+        <div className="producto__informacion">
+          <p className="producto__nombre">{item.name}</p>
+          <p className="producto__precio">{item.price} €</p>
         </div>
+        <button className="button" onClick={() => { setNumItems(numItems + 1) }}>Añadir al carrito</button>
       </div>
     </Container>
   )
@@ -23,165 +19,68 @@ const Card = ({ item, setNumItems, numItems }) => {
 
 
 const Container = styled.div`
+
 display: flex;
+flex-direction: column;
+align-items: center;
 justify-content: center;
-.card {
-  --font-color: #323232;
-  --font-color-sub: #666;
-  --bg-color: #fff;
-  --main-color: #323232;
-  --main-focus: #2d8cf0;
-  width: 230px;
-  height: 300px;
-  background: var(--bg-color);
-  border: 2px solid var(--main-color);
-  box-shadow: 4px 4px var(--main-color);
-  border-radius: 5px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  padding: 20px;
-  gap: 10px;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+
+
+--primario: #9C27B0;
+--primarioOscuro: #89119D;
+--secundario: #FFCE00;
+--secundarioOscuro: rgb(233,287,2);
+--blanco: #FFF;
+--negro: #000;
+
+--fuentePrincipal: 'Staatliches', cursive;
+
+
+
+
+.producto{
+    background-color: var(--primarioOscuro);
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 15px;
+
 }
 
-.card:last-child {
-  justify-content: flex-end;
+.producto__imagen{
+  border-radius: 15px;
 }
 
-.card-img {
-    /* clear and add new css */
-  transition: all 0.5s;
-  display: flex;
-  justify-content: center;
+
+.producto__nombre{
+    font-size: 1.5rem;
 }
 
-.card-img .img {
- /* delete */
-  transform: scale(1);
-  position: relative;
-  box-sizing: border-box;
-  width: 100px;
-  height: 100px;
-  border-top-left-radius: 80px 50px;
-  border-top-right-radius: 80px 50px;
-  border: 2px solid black;
-  background-color: #228b22;
-  background-image: linear-gradient(to top,transparent 10px,rgba(0,0,0,0.3) 10px,rgba(0,0,0,0.3) 13px,transparent 13px);
+.button{
+margin: auto;
+border-radius: 4px;
+background-color: #000;
+color: #FFF;
+padding: 5px;
+
 }
 
-.card-img .img::before {
- /* delete */
-  content: '';
-  position: absolute;
-  width: 65px;
-  height: 110px;
-  margin-left: -32.5px;
-  left: 50%;
-  bottom: -4px;
-  background-repeat: no-repeat;
-  background-image: radial-gradient(ellipse at center,rgba(0,0,0,0.7) 30%,transparent 30%),linear-gradient(to top,transparent 17px,rgba(0,0,0,0.3) 17px,rgba(0,0,0,0.3) 20px,transparent 20px),linear-gradient(to right,black 2px,transparent 2px),linear-gradient(to left,black 2px,transparent 2px),linear-gradient(to top,black 2px,#228b22 2px);
-  background-size: 60% 10%,100% 100%,100% 65%,100% 65%,100% 50%;
-  background-position: center 3px,center bottom,center bottom,center bottom,center bottom;
-  border-radius: 0 0 4px 4px;
-  z-index: 2;
+.producto__precio{
+    font-size: 1.1rem;
+    color: var(--secundario);
 }
 
-.card-img .img::after {
- /* delete */
-  content: '';
-  position: absolute;
-  box-sizing: border-box;
-  width: 28px;
-  height: 28px;
-  margin-left: -14px;
-  left: 50%;
-  top: -13px;
-  background-repeat: no-repeat;
-  background-image: linear-gradient(80deg,#ffc0cb 45%,transparent 45%),linear-gradient(-175deg,#ffc0cb 45%,transparent 45%),linear-gradient(80deg,rgba(0,0,0,0.2) 51%,rgba(0,0,0,0) 51%),linear-gradient(-175deg,rgba(0,0,0,0.2) 51%,rgba(0,0,0,0) 51%),radial-gradient(circle at center,#ffa6b6 45%,rgba(0,0,0,0.2) 45%,rgba(0,0,0,0.2) 52%,rgba(0,0,0,0) 52%),linear-gradient(45deg,rgba(0,0,0,0) 48%,rgba(0,0,0,0.2) 48%,rgba(0,0,0,0.2) 52%,rgba(0,0,0,0) 52%),linear-gradient(65deg,rgba(0,0,0,0) 48%,rgba(0,0,0,0.2) 48%,rgba(0,0,0,0.2) 52%,rgba(0,0,0,0) 52%),linear-gradient(22deg,rgba(0,0,0,0) 48%,rgba(0,0,0,0.2) 48%,rgba(0,0,0,0.2) 54%,rgba(0,0,0,0) 54%);
-  background-size: 100% 100%,100% 100%,100% 100%,100% 100%,100% 100%,100% 75%,100% 95%,100% 60%;
-  background-position: center center;
-  border-top-left-radius: 120px;
-  border-top-right-radius: 10px;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 70px;
-  border-top: 2px solid black;
-  border-left: 2px solid black;
-  transform: rotate(45deg);
-  z-index: 1;
+.producto__nombre,
+.producto__precio {
+    font-family: var(--fuentePrincipal);
+    margin: 1rem 0;
+    text-align: center;
+    line-height: 1.2;
 }
 
-.card-title {
-  font-size: 20px;
-  font-weight: 500;
-  text-align: center;
-  color: var(--font-color);
-}
-
-.card-subtitle {
-  font-size: 14px;
-  font-weight: 400;
-  color: var(--font-color-sub);
-  text-align: center;
-}
-
-.card-divider {
-  width: 100%;
-  border: 1px solid var(--main-color);
-  border-radius: 50px;
-}
-
-.card-footer {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.card-price {
-  font-size: 20px;
-  font-weight: 500;
-  color: var(--font-color);
-}
-
-.card-price span {
-  font-size: 20px;
-  font-weight: 500;
-  color: var(--font-color-sub);
-}
-
-.card-btn {
-  height: 35px;
-  background: var(--bg-color);
-  border: 2px solid var(--main-color);
-  border-radius: 5px;
-  padding: 0 15px;
-  transition: all 0.3s;
-}
-
-.card-btn svg {
-  width: 100%;
-  height: 100%;
-  fill: var(--main-color);
-  transition: all 0.3s;
-}
-
-.card-img:hover {
-  transform: translateY(-3px);
-}
-
-.card-btn:hover {
-  border: 2px solid var(--main-focus);
-  cursor: pointer;
-}
-
-.card-btn:hover svg {
-  fill: var(--main-focus);
-}
-
-.card-btn:active {
-  transform: translateY(3px);
-}
 
 `
 export default Card

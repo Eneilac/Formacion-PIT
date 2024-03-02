@@ -39,6 +39,7 @@ grid-area: header;
 
 .main { 
 grid-area: main;
+
 }
 
 `

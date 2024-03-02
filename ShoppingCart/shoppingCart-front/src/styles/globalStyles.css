@@ -11,6 +11,9 @@ html {
     /* 1 */
     -webkit-text-size-adjust: 100%;
     /* 2 */
+
+    scrollbar-width: thin;
+    scrollbar-color: #4f4141 #201d1d;
 }
 
 /** Sections  ========================================================================== */
@@ -356,4 +359,10 @@ template {
 
 body{
     background-color: rgb(73, 71, 71);
+
+
 }
+
+
+
+
