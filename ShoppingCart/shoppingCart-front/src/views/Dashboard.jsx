@@ -15,6 +15,14 @@ const Dashboard = (props) => {
     const [toggleCart, setToggleCart] = useState(false)
     const [addItem, setAddItem] = useState(false);
 
+    const [data, setData] = useState()
+
+
+    const handleSubmit = (newData) => {
+
+        setData(newData)
+
+    }
 
 
     useEffect(() => {
@@ -82,6 +90,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 const Container = styled.div`
 
+
 .buttonCart{
 position: fixed;
 bottom: 32px;
@@ -119,6 +128,7 @@ z-index: 4;
     height: fit-content;
     padding: 20px;
     background-color: #59616396;
+    border-radius: 15px;
 }
 
 .cart{
@@ -140,6 +150,7 @@ z-index: 4;
 .none{
     display: none;
 }
+
 
 
 

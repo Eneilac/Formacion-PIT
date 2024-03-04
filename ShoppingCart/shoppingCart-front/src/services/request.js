@@ -23,7 +23,6 @@ export function post(path, data) {
                 headers: { "Content-type": "application/json;charset=UTF-8" }
             }
         )
-            .then()
     } catch (error) {
         return error;
     }

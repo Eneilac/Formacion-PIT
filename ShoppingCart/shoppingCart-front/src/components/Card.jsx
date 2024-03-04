@@ -17,7 +17,6 @@ const Card = ({ item, setNumItems, numItems }) => {
   )
 }
 
-
 const Container = styled.div`
 
 display: flex;
@@ -27,8 +26,8 @@ justify-content: center;
 
 
 
---primario: #9C27B0;
---primarioOscuro: #89119D;
+--primario: #cd71dd;
+--primarioOscuro: #367aab;
 --secundario: #FFCE00;
 --secundarioOscuro: rgb(233,287,2);
 --blanco: #FFF;
@@ -47,6 +46,7 @@ justify-content: center;
     justify-content: center;
     flex-direction: column;
     border-radius: 15px;
+
 
 }
 

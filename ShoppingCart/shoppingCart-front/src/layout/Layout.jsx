@@ -22,6 +22,7 @@ const Layout = () => {
 const Container = styled.div`
 
 .container {
+overflow-x: hidden;
 height: 100vh;
 display: grid;
 grid:
