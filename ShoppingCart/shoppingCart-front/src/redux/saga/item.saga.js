@@ -1,8 +1,8 @@
 import { call, put } from 'redux-saga/effects'
-import { get } from '../../services/request';
-import { itemActionRequestSuccess, itemActionRequestFailed } from '../actions/'
+import { get, post } from '../../services/request';
+import { itemActionRequestSuccess, itemActionRequestFailed, itemPostActionRequestSuccess, itemPostActionRequestFailed } from '../actions/'
 
-function* fetchItem(action) {
+export function* fetchItem(action) {
     try {
         const response = yield call(get, action.payload);
         yield put(itemActionRequestSuccess(response));
@@ -12,4 +12,13 @@ function* fetchItem(action) {
     }
 }
 
-export default fetchItem
+
+export function* postItem(action) {
+    try {
+        console.log(action.payload)
+        const response = yield call(post, action.payload);
+        yield put(itemPostActionRequestSuccess(response))
+    } catch (e) {
+        yield put(itemPostActionRequestFailed(e))
+    }
+}

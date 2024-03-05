@@ -2,7 +2,7 @@ import {
     CART_ACTION_REQUEST_STARTED,
     CART_ACTION_REQUEST_SUCCESS,
     CART_ACTION_REQUEST_FAILED,
-} from '../../constants/actionTypes/cart.actionTypes';
+} from '../../../constants/actionTypes/cart.actionTypes';
 
 
 const cartActionRequestStarted = (query) => ({

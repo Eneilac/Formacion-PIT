@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import DashboardTemplate from "../templates/Dasboard.template";
 import { connect } from "react-redux";
-import { itemActionRequestStarted } from '../redux/actions'
+import { itemActionRequestStarted, itemPostActionRequestStarted } from '../redux/actions'
 import { useEffect, useState } from "react";
 import { TiShoppingCart } from "react-icons/ti";
 import Cart from "../components/Cart";
@@ -10,24 +10,23 @@ import AddItem from "../components/AddItem";
 
 const Dashboard = (props) => {
 
-    const { onLoadItemStarted } = props;
     const [numItems, setNumItems] = useState(0);
     const [toggleCart, setToggleCart] = useState(false)
     const [addItem, setAddItem] = useState(false);
 
-    const [data, setData] = useState()
-
-
     const handleSubmit = (newData) => {
-
-        setData(newData)
-
+        itemPost(newData)
     }
 
 
+    const { onLoadItemStarted, itemPost } = props;
+
     useEffect(() => {
+        console.log("Dashboard - useEffect");
         onLoadItemStarted('/items');
     }, [onLoadItemStarted])
+
+
 
     const show = () => {
         setToggleCart(!toggleCart)
@@ -43,10 +42,12 @@ const Dashboard = (props) => {
                         <AddItem
                             addItem={addItem}
                             setAddItem={setAddItem}
+                            handleSubmit={handleSubmit}
                         />
                     </div>
                 </div> : ''
             }
+
             <DashboardTemplate
                 items={props.item}
                 setNumItems={setNumItems}
@@ -54,6 +55,7 @@ const Dashboard = (props) => {
                 addItem={addItem}
                 setAddItem={setAddItem}
             />
+
 
             <div className="buttonCart" onClick={() => { show() }}>
                 {numItems} <TiShoppingCart />
@@ -73,7 +75,6 @@ const Dashboard = (props) => {
 }
 
 
-
 //? Mapeo de los props de Redux
 const mapStateToProps = (state) => ({
     item: state.itemState.item,
@@ -82,10 +83,9 @@ const mapStateToProps = (state) => ({
 
 //? Mapeo de la funcion a usar de Redux
 const mapDispatchToProps = (dispatch) => ({
-    onLoadItemStarted: (item) => dispatch(itemActionRequestStarted(item))
+    onLoadItemStarted: (item) => dispatch(itemActionRequestStarted(item)),
+    itemPost: (path, data) => dispatch(itemPostActionRequestStarted(path, data))
 });
-
-
 
 
 const Container = styled.div`

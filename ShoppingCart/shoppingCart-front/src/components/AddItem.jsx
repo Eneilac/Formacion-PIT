@@ -2,17 +2,23 @@ import styled from "styled-components";
 import { RiCloseCircleFill } from "react-icons/ri";
 import { useState } from "react";
 
-const AddItem = ({ addItem, setAddItem }) => {
+const AddItem = ({ addItem, setAddItem, handleSubmit }) => {
 
-    const [formData, setFormData] = useState();
+    const [formData, setFormData] = useState({
+        name: "",
+        description: "",
+        size: "XL",
+        price: 0,
+    });
 
-
-
-    const submit = () => {
-
-    }
-
-
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        
+        setFormData((prevData) => ({
+            ...prevData,
+            [name]: value,
+        }));
+    };
 
 
 
@@ -23,33 +29,47 @@ const AddItem = ({ addItem, setAddItem }) => {
                 <RiCloseCircleFill className="icon" />
             </div>
             <h2>Añadir un elemento</h2>
-            <input type="text" placeholder="Nombre: " name="name" />
+            <input type="text" placeholder="Nombre: " name="name"
+                onChange={handleChange}
+                required
+            />
 
-            <textarea type="text" placeholder="Descripción: " />
+            <textarea type="text" placeholder="Descripción:" name="description"
+                onChange={handleChange}
+                required
+            />
 
-
-            <select name="size" id="size">
+            <select name="size" id="size"
+                onChange={handleChange}
+                required
+            >
                 <option value="XL">XL</option>
                 <option value="L">L</option>
                 <option value="M">M</option>
                 <option value="S">S</option>
             </select>
 
-            <input type="number" placeholder="Precio: " name="price" />
+            <input type="number" placeholder="Precio: " name="price"
+                onChange={handleChange}
+                required
+            />
 
-            <button type="submit">Crear</button>
-
+            <button type="submit" onClick={() => {
+                handleSubmit(formData)
+                setAddItem(!addItem)
+            }}>Crear</button>
         </Container >
     )
 }
 
-const Container = styled.form`
-display: flex;
-flex-direction: column;
-max-width: 450px;
-gap: 15px;
-padding: 15px;
-border-radius: 15px;
+const Container = styled.div`
+    display: flex;
+    flex-direction: column;
+    max-width: 450px;
+    gap: 15px;
+    padding: 15px;
+    border-radius: 15px;
+
 
 input{
     border-radius: 6px;

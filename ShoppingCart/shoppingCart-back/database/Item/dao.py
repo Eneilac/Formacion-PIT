@@ -16,7 +16,7 @@ class ItemDao(BaseDao):
     def post_item(self, item_data):
         with self.connection.cursor(DictCursor) as cur:
             values = [item_data['name'], item_data['description'],
-                      item_data['size']]
+                      item_data['size'],item_data['price']]
             try:
                 cur.execute(queries.POST_ITEM, values)
                 self.connection.commit()

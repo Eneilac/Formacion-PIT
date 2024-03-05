@@ -16,11 +16,14 @@ export const get = (path) => {
         })
 }
 
-export function post(path, data) {
+export function post(data) {
+    console.log(data)
     try {
-        return axios.post(API_BASE_URL + path, data,
+        return axios.post(API_BASE_URL + '/items', data,
             {
-                headers: { "Content-type": "application/json;charset=UTF-8" }
+                headers: { "Content-type": "application/json;charset=UTF-8" },
+                'data': JSON.stringify(data),
+
             }
         )
     } catch (error) {

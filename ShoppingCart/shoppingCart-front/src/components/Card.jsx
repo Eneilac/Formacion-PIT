@@ -1,3 +1,4 @@
+import icons from "../utils/icons";
 import styled from "styled-components";
 
 
@@ -12,6 +13,7 @@ const Card = ({ item, setNumItems, numItems }) => {
           <p className="producto__precio">{item.price} €</p>
         </div>
         <button className="button" onClick={() => { setNumItems(numItems + 1) }}>Añadir al carrito</button>
+        <button className="trash"><icons.trashIcon /></button>
       </div>
     </Container>
   )
@@ -52,6 +54,8 @@ justify-content: center;
 
 .producto__imagen{
   border-radius: 15px;
+  max-width: 220px;
+  background-color: #FFF;
 }
 
 

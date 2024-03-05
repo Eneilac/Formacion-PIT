@@ -4,9 +4,11 @@ import Card from "../components/Card";
 const DashboardTemplate = ({ items, setNumItems, numItems, addItem, setAddItem }) => {
 
 
-
-
+    console.log(items);
     return (
+
+
+
         <Container>
             <section>
                 <button className="cssbuttons-io-button" onClick={() => { setAddItem(!addItem) }}>
@@ -17,14 +19,15 @@ const DashboardTemplate = ({ items, setNumItems, numItems, addItem, setAddItem }
             <section className="items">
 
                 {
-                    items && items.map((item, index) => (
+
+                    items && items ? items.map((item, index) => (
                         <Card
                             key={index}
                             item={item}
                             setNumItems={setNumItems}
                             numItems={numItems}
                         />
-                    ))
+                    )) : ''
                 }
             </section>
         </Container>

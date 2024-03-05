@@ -24,7 +24,7 @@ def post_item():
     try:
         dao = ItemDao()
         dao.post_item(data)  # Introduzco los datos obtenidos hacia el post_item donde se ubica la query
-        return jsonify({'success': 'Usuario creado correctamente'}), 200
+        return jsonify({'success': 'Item creado correctamente'}), 200
     except Exception as e:
         # Manejo de errores
         print(e)

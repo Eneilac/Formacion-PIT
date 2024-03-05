@@ -10,8 +10,8 @@ WHERE id = %s
 """
 
 POST_ITEM = """
-INSERT INTO tshirt (name, description, size) 
-VALUES (%s, %s, %s);
+INSERT INTO tshirt (name, description, size, price) 
+VALUES (%s, %s, %s, %s);
 """
 
 DEL_ITEM = """

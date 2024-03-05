@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { icons } from '../utils/Icons'
+import icons from '../utils/icons'
 
 const Header = () => {
 
