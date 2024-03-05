@@ -23,11 +23,15 @@ const applyGetItemStarted = (state) => ({
 })
 
 const applyGetItemSuccess = (state, action) => {
-    console.log(action.payload.itemInfo)
+    const itemInfoArray = action.payload.itemInfo;
+    const itemInfoJSON = JSON.stringify(itemInfoArray);
+    localStorage.setItem('listItems', itemInfoJSON);
+
+
     return (
         {
             ...state,
-            item: action.payload.itemInfo && localStorage.setItem('items', action.payload.itemInfo)
+            item: action.payload.itemInfo
         }
     )
 }
@@ -49,13 +53,10 @@ const applyPostItemStarted = (state) => ({
 })
 
 const applyPostItemSuccess = (state, action) => {
-
-    console.log(action.payload.itemInfo)
-
     return (
         {
             ...state,
-            item: action.payload.itemInfo,
+            post: action.payload.itemInfo,
         }
     )
 }
@@ -70,17 +71,30 @@ const applyPostItemFailed = (state, action) => {
 }
 
 
+//*********************************************DELETE******************************************/
 
 
+// const applyDelItemStarted = (state) => ({
+//     ...state,
+// })
 
+// const applyDelItemSuccess = (state, action) => {
+//     return (
+//         {
+//             ...state,
+//             post: action.payload.itemInfo,
+//         }
+//     )
+// }
 
-
-
-
-
-
-
-
+// const applyDelItemFailed = (state, action) => {
+//     return (
+//         {
+//             ...state,
+//             item: null,
+//             error: action.payload.code
+//         })
+// }
 
 
 
@@ -109,6 +123,10 @@ function itemReducer(state = INITIAL_STATE, action) {
         case ITEM_POST_ACTION_REQUEST_FAILED: {
             return applyPostItemFailed(state, action)
         }
+
+
+
+
 
 
         default: return state;

@@ -9,27 +9,25 @@ import AddItem from "../components/AddItem";
 
 
 const Dashboard = (props) => {
-
+    const { onLoadItemStarted, itemPost } = props;
     const [numItems, setNumItems] = useState(0);
     const [toggleCart, setToggleCart] = useState(false)
     const [addItem, setAddItem] = useState(false);
 
-    const handleSubmit = (newData) => {
-        itemPost(newData)
-    }
 
-
-    const { onLoadItemStarted, itemPost } = props;
 
     useEffect(() => {
-        console.log("Dashboard - useEffect");
         onLoadItemStarted('/items');
-    }, [onLoadItemStarted])
-
+    }, [onLoadItemStarted, addItem])
 
 
     const show = () => {
         setToggleCart(!toggleCart)
+    }
+
+    const handleSubmit = (newData) => {
+        itemPost(newData)
+        setAddItem(!addItem)
     }
 
 
