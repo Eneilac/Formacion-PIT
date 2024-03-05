@@ -8,16 +8,15 @@ export const get = (path) => {
         {
             headers: { "Content-type": "application/json;charset=UTF-8" }
         })
-        .then(response =>{
+        .then(response => {
             return response.data
-        } )
+        })
         .catch(error => {
             console.log(error)
         })
 }
 
 export function post(data) {
-    console.log(data)
     try {
         return axios.post(API_BASE_URL + '/items', data,
             {
@@ -45,9 +44,11 @@ export function patch(path, data) {
 
 }
 
-export function del(path, id) {
+export function del(data) {
+    console.log("entro" + data)
+  
     try {
-        return fetch(API_BASE_URL + path + id, {
+        return fetch(API_BASE_URL + data, {
             method: "DELETE",
             headers: { "Content-type": "application/json;charset=UTF-8" }
         });

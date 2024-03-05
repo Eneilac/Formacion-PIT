@@ -4,7 +4,10 @@ import {
     ITEM_ACTION_REQUEST_FAILED,
     ITEM_POST_ACTION_REQUEST_STARTED,
     ITEM_POST_ACTION_REQUEST_SUCCESS,
-    ITEM_POST_ACTION_REQUEST_FAILED
+    ITEM_POST_ACTION_REQUEST_FAILED,
+    ITEM_DEL_ACTION_REQUEST_STARTED,
+    ITEM_DEL_ACTION_REQUEST_SUCCESS,
+    ITEM_DEL_ACTION_REQUEST_FAILED
 } from '../../../constants/actionTypes/item.actionTypes';
 
 //** GET */
@@ -35,9 +38,9 @@ const itemPostActionRequestStarted = (query) => ({
 });
 
 
-const itemPostActionRequestSuccess = (itemInfo) => ({
+const itemPostActionRequestSuccess = (itemPost) => ({
     type: ITEM_POST_ACTION_REQUEST_SUCCESS,
-    payload: { itemInfo }
+    payload: { itemPost }
 });
 
 
@@ -45,6 +48,28 @@ const itemPostActionRequestFailed = (error) => ({
     type: ITEM_POST_ACTION_REQUEST_FAILED,
     payload: error
 })
+
+//** del  */
+
+const itemDelActionRequestStarted = (query) => ({
+    type: ITEM_DEL_ACTION_REQUEST_STARTED,
+    payload: query
+});
+
+
+const itemDelActionRequestSuccess = (itemDel) => ({
+    type: ITEM_DEL_ACTION_REQUEST_SUCCESS,
+    payload: { itemDel }
+});
+
+
+const itemDelActionRequestFailed = (error) => ({
+    type: ITEM_DEL_ACTION_REQUEST_FAILED,
+    payload: error
+})
+
+
+
 
 
 
@@ -56,5 +81,8 @@ export {
     itemActionRequestFailed,
     itemPostActionRequestStarted,
     itemPostActionRequestSuccess,
-    itemPostActionRequestFailed
+    itemPostActionRequestFailed,
+    itemDelActionRequestStarted,
+    itemDelActionRequestSuccess,
+    itemDelActionRequestFailed
 }

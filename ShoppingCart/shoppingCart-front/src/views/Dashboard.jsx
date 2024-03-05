@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import DashboardTemplate from "../templates/Dasboard.template";
 import { connect } from "react-redux";
-import { itemActionRequestStarted, itemPostActionRequestStarted } from '../redux/actions'
+import { itemActionRequestStarted, itemDelActionRequestStarted, itemPostActionRequestStarted } from '../redux/actions'
 import { useEffect, useState } from "react";
 import { TiShoppingCart } from "react-icons/ti";
 import Cart from "../components/Cart";
@@ -9,16 +9,16 @@ import AddItem from "../components/AddItem";
 
 
 const Dashboard = (props) => {
-    const { onLoadItemStarted, itemPost } = props;
+    const { onLoadItemStarted, postItem, delItem } = props;
     const [numItems, setNumItems] = useState(0);
     const [toggleCart, setToggleCart] = useState(false)
     const [addItem, setAddItem] = useState(false);
-
+    const [del, setDel] = useState(false)
 
 
     useEffect(() => {
         onLoadItemStarted('/items');
-    }, [onLoadItemStarted, addItem])
+    }, [onLoadItemStarted, addItem, del])
 
 
     const show = () => {
@@ -26,8 +26,13 @@ const Dashboard = (props) => {
     }
 
     const handleSubmit = (newData) => {
-        itemPost(newData)
+        postItem(newData)
         setAddItem(!addItem)
+    }
+
+    const handleDelete = (id) => {
+        delItem('/items/' + id);
+        setDel(!del)
     }
 
 
@@ -52,6 +57,7 @@ const Dashboard = (props) => {
                 numItems={numItems}
                 addItem={addItem}
                 setAddItem={setAddItem}
+                handleDelete={handleDelete}
             />
 
 
@@ -82,7 +88,8 @@ const mapStateToProps = (state) => ({
 //? Mapeo de la funcion a usar de Redux
 const mapDispatchToProps = (dispatch) => ({
     onLoadItemStarted: (item) => dispatch(itemActionRequestStarted(item)),
-    itemPost: (path, data) => dispatch(itemPostActionRequestStarted(path, data))
+    postItem: (data) => dispatch(itemPostActionRequestStarted(data)),
+    delItem: (id) => dispatch(itemDelActionRequestStarted(id))
 });
 
 

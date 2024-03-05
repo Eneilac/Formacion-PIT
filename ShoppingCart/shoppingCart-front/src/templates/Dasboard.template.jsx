@@ -1,14 +1,8 @@
 import styled from "styled-components";
 import Card from "../components/Card";
 
-const DashboardTemplate = ({ items, setNumItems, numItems, addItem, setAddItem }) => {
-
-
-    console.log(items);
+const DashboardTemplate = ({ items, setNumItems, numItems, addItem, setAddItem, handleDelete }) => {
     return (
-
-
-
         <Container>
             <section>
                 <button className="cssbuttons-io-button" onClick={() => { setAddItem(!addItem) }}>
@@ -26,6 +20,7 @@ const DashboardTemplate = ({ items, setNumItems, numItems, addItem, setAddItem }
                             item={item}
                             setNumItems={setNumItems}
                             numItems={numItems}
+                            handleDelete={handleDelete}
                         />
                     )) : ''
                 }

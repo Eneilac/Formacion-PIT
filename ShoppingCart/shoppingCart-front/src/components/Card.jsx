@@ -2,7 +2,7 @@ import icons from "../utils/icons";
 import styled from "styled-components";
 
 
-const Card = ({ item, setNumItems, numItems }) => {
+const Card = ({ item, setNumItems, numItems, handleDelete }) => {
 
   return (
     <Container>
@@ -13,7 +13,7 @@ const Card = ({ item, setNumItems, numItems }) => {
           <p className="producto__precio">{item.price} €</p>
         </div>
         <button className="button" onClick={() => { setNumItems(numItems + 1) }}>Añadir al carrito</button>
-        <button className="trash"><icons.trashIcon /></button>
+        <button className="trash" onClick={() => { handleDelete(item.id) }}><icons.trashIcon /></button>
       </div>
     </Container>
   )
@@ -83,6 +83,10 @@ padding: 5px;
     margin: 1rem 0;
     text-align: center;
     line-height: 1.2;
+}
+
+.trash{
+  cursor: pointer;
 }
 
 
