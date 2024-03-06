@@ -3,3 +3,4 @@ flask
 flask-cors
 cryptography
 Flask-JWT-Extended
+flask_testing

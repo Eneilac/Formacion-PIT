@@ -1,16 +1,20 @@
 import pymysql.cursors
 
+from database.Database import Database
+
 
 class BaseDao:
     def __init__(self):
-        self.connection = pymysql.connect(
-            user="root",
-            password="root",
-            database="neilashop",
-            cursorclass=pymysql.cursors.DictCursor
-        )
+        self.database = Database()
+        self.database.connect()
 
-    def close_connection(self):
-        if self.connection:
-            self.connection.close()
+    def commit(self):
+        if self.database.connection:
+            self.database.commit()
+
+    def close(self):
+        if self.database.connection:
+            self.database.close_connection()
+
+
 

@@ -17,8 +17,14 @@ const Dashboard = (props) => {
 
 
     useEffect(() => {
-        onLoadItemStarted('/items');
-    }, [onLoadItemStarted, addItem, del])
+
+        if (props.item.length === 0 || del === true) {
+            onLoadItemStarted('/items');
+
+            setDel(false)
+        }
+
+    }, [del, props.item])
 
 
     const show = () => {

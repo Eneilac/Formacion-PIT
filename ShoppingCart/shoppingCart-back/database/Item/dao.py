@@ -7,28 +7,19 @@ class ItemDao(BaseDao):
 
     #                             USER BASIC
 
-    def get_items(self): 
-        with self.connection.cursor(DictCursor) as cur:
-            cur.execute(queries.GET_ITEMS)
-            self.connection.commit()
-            return cur.fetchall()
+    def get_items(self):
+        result = self.database.execute(queries.GET_ITEMS)
+        self.close()
+        return result
 
     def post_item(self, item_data):
-        with self.connection.cursor(DictCursor) as cur:
-            values = [item_data['name'], item_data['description'],
-                      item_data['size'],item_data['price']]
-            try:
-                cur.execute(queries.POST_ITEM, values)
-                self.connection.commit()
-            except Exception as e:
-                # Manejo de errores
-                print(e)
-                return e
+        values = [item_data['name'], item_data['description'],
+                  item_data['size'], item_data['price']]
+
+        return self.database.execute_id(queries.POST_ITEM, values)
 
     def delete_item_by_id(self, item_id):
-        with self.connection.cursor(DictCursor) as cur:
-            cur.execute(queries.DEL_ITEM, (item_id,))
-            self.connection.commit()
+        return self.database.execute_id(queries.DEL_ITEM, item_id)
 
     def patch_item_by_id(self, data):
         item_id = data.get('id', None)
@@ -36,13 +27,7 @@ class ItemDao(BaseDao):
         description = data.get('description', None)
         size = data.get('size', None)
 
-        with self.connection.cursor(DictCursor) as cur:
-            cur.execute(queries.PATCH_ITEM, (name, description, size, item_id))
-            self.connection.commit()
+        return self.database.execute_id(queries.PATCH_ITEM, name, description, size, item_id)
 
     def get_item_by_id(self, item_id):
-        with self.connection.cursor(DictCursor) as cur:
-            cur.execute(queries.GET_ITEM_BY_ID, (item_id,))
-            return cur.fetchall()
-
-    
+        return self.database.execute_id(queries.GET_ITEM_BY_ID, item_id)
