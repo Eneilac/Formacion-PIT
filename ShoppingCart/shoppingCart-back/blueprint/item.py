@@ -31,11 +31,14 @@ def post_item():
         return jsonify({'error': e}), 500
 
 
-@blueprint.route("/<int:item_id>", methods=['DELETE'])
+@blueprint.route('/<int:item_id>', methods=['DELETE'])
 def delete_item_by_id(item_id):
     dao = ItemDao()
-    dao.delete_item_by_id(item_id)
-    return jsonify({'msg': ''}), 200
+    try:
+        dao.delete_item_by_id(item_id)
+        return jsonify({'message': 'Item deleted successfully'})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 
 @blueprint.route("", methods=['PATCH'])
@@ -58,4 +61,3 @@ def patch_item_by_id():
 def get_item_by_id(item_id, ):
     dao = ItemDao()
     return jsonify(dao.get_item_by_id(item_id))
-

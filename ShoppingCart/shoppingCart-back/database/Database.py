@@ -25,13 +25,10 @@ class Database:
             self.connection.commit()
             return cur.fetchall()
 
-    def execute_id(self, query, **kwargs):
+    def execute_id(self, query, args=None):
         with self.connection.cursor(DictCursor) as cur:
-            try:
-                cur.execute(query, kwargs)
-                self.connection.commit()
-            except Exception as e:
-                return e
+            cur.execute(query, args)
+        return cur.fetchall()
 
     def commit(self):
         if self.connection:
