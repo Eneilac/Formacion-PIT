@@ -26,7 +26,6 @@ const applyGetItemStarted = (state) => ({
 })
 
 const applyGetItemSuccess = (state, action) => {
-
     return (
         {
             ...state,

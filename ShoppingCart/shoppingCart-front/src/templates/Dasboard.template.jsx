@@ -5,7 +5,7 @@ const DashboardTemplate = ({ items, setNumItems, numItems, addItem, setAddItem, 
     return (
         <Container>
             <section>
-                <button className="cssbuttons-io-button" onClick={() => { setAddItem(!addItem) }}>
+                <button className="additem-button" onClick={() => { setAddItem(!addItem) }}>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"></path><path fill="currentColor" d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z"></path></svg>
                     <span>Añadir producto</span>
                 </button>
@@ -46,7 +46,7 @@ align-items: center;
 
 
 
-.cssbuttons-io-button {
+.additem-button {
 margin: 25px;
 cursor: pointer;
 display: flex;
@@ -57,23 +57,23 @@ font-size: 16px;
 padding: 0.7em 1.4em 0.7em 1.1em;
 color: white;
 background: #ad5389;
-background: linear-gradient(0deg, rgba(20,167,62,1) 0%, rgba(102,247,113,1) 100%);
+background: linear-gradient(0deg, #142fa7 0%, #6677f7 100%);
 border: none;
-box-shadow: 0 0.7em 1.5em -0.5em #14a73e98;
+box-shadow: 0 0.7em 1.5em -0.5em #1914a797;
 letter-spacing: 0.05em;
-border-radius: 20em;
+border-radius: 5px;
 }
 
-.cssbuttons-io-button svg {
+.additem-button svg {
 margin-right: 6px;
 }
 
-.cssbuttons-io-button:hover {
-box-shadow: 0 0.5em 1.5em -0.5em #14a73e98;
+.additem-button:hover {
+box-shadow: 0 0.5em 1.5em -0.5em #00d4f996;
 }
 
-.cssbuttons-io-button:active {
-box-shadow: 0 0.3em 1em -0.5em #14a73e98;
+.additem-button:active {
+box-shadow: 0 0.3em 1em -0.5em #00e5ff96;
 }
 
 `
