@@ -5,6 +5,7 @@ import { itemActionRequestSuccess, itemActionRequestFailed, itemPostActionReques
 export function* fetchItem(action) {
     try {
         const response = yield call(get, action.payload);
+
         yield put(itemActionRequestSuccess(response));
 
     } catch (e) {
@@ -22,7 +23,6 @@ export function* postItem(action) {
 }
 
 export function* delItem(action) {
-    console.log(action)
     try {
         const response = yield call(del, action.payload);
         yield put(itemDelActionRequestSuccess(response))

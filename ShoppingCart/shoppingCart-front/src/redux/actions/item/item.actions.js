@@ -18,10 +18,12 @@ const itemActionRequestStarted = (query) => ({
 });
 
 
-const itemActionRequestSuccess = (itemInfo) => ({
-    type: ITEM_ACTION_REQUEST_SUCCESS,
-    payload: { itemInfo }
-});
+const itemActionRequestSuccess = (itemInfo) => {
+    return {
+        type: ITEM_ACTION_REQUEST_SUCCESS,
+        payload: { itemInfo }
+    }
+};
 
 
 const itemActionRequestFailed = (error) => ({
@@ -38,10 +40,12 @@ const itemPostActionRequestStarted = (query) => ({
 });
 
 
-const itemPostActionRequestSuccess = (itemPost) => ({
-    type: ITEM_POST_ACTION_REQUEST_SUCCESS,
-    payload: { itemPost }
-});
+const itemPostActionRequestSuccess = (itemPost) => {
+    return {
+        type: ITEM_POST_ACTION_REQUEST_SUCCESS,
+        payload: {item:itemPost.data.item}
+    }
+};
 
 
 const itemPostActionRequestFailed = (error) => ({

@@ -15,31 +15,35 @@ const Dashboard = (props) => {
     const [addItem, setAddItem] = useState(false);
     const [del, setDel] = useState(false)
 
+  // Efecto de carga inicial
+  useEffect(() => {
+    onLoadItemStarted('/items');
+    setDel(false);
+  }, [onLoadItemStarted]); // Sin dependencias, se ejecuta solo al montar el componente
 
-    useEffect(() => {
-            onLoadItemStarted('/items');
-            setDel(false)
-    }, [del])
 
+  useEffect(()=>{
 
-    const show = () => {
+  },[props.item])
+
+  
+  const show = () => {
         setToggleCart(!toggleCart)
     }
 
     const handleSubmit = (newData) => {
         postItem(newData)
+        onLoadItemStarted('/items'); 
         setAddItem(!addItem)
     }
-
     const handleDelete = (id) => {
         delItem('/items/' + id);
-        setDel(!del)
+        onLoadItemStarted('/items'); 
+        setDel(!del);
     }
-
 
     return (
         <Container>
-
             {
                 addItem ? <div className="add-items-container">
                     <div className="addItem">
@@ -129,6 +133,8 @@ z-index: 4;
     backdrop-filter: blur(10px);
     z-index: 99999!important;
 }
+
+
 .addItem{
     width: fit-content;
     height: fit-content;
@@ -137,12 +143,7 @@ z-index: 4;
     border-radius: 15px;
 }
 
-.cart{
-    position: fixed;
-    top: 250px;
-    right: 35vw;
-    z-index: 2;
-}
+
 
 .filter{
     position: fixed;

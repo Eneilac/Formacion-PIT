@@ -11,127 +11,107 @@ import {
 } from "../../constants/actionTypes/item.actionTypes.js";
 
 
+
 const INITIAL_STATE = {
     item: [],
-    error: null
-}
+    error: null,
+    post: null,
+    del: null
+};
 
 
 
-//*********************************************GET***********************************************/
+//***************************************************GET****************************************************/
+const getItemStarted = (state) => {
+    return {
+        ...state
+    }
+};
 
-const applyGetItemStarted = (state) => ({
+const getItemSuccess = (state, action) => {
+    return {
+        ...state,
+        item: action.payload.itemInfo
+    }
+};
+
+const getItemFailed = (state, action) => ({
     ...state,
-
-})
-
-const applyGetItemSuccess = (state, action) => {
-    return (
-        {
-            ...state,
-            item: action.payload.itemInfo
-        }
-    )
-}
-
-const applyGetItemFailed = (state, action) => {
-    return (
-        {
-            ...state,
-            item: null,
-            error: action.payload.code
-        })
-}
+    error: action.payload.code
+});
 
 
-//*********************************************POST******************************************/
+//***************************************************POST****************************************************/
 
-const applyPostItemStarted = (state) => ({
+const postItemStarted = (state) => ({
+    ...state
+});
+
+const postItemSuccess = (state, action) => {
+    const updatedItem = [...state.item, action.payload.item];
+
+    return {
+        ...state,
+        item: updatedItem,
+        post: action.payload.itemPost
+    };
+};
+
+const postItemFailed = (state, action) => ({
     ...state,
-})
+    error: action.payload.code
+});
 
-const applyPostItemSuccess = (state, action) => {
-    return (
-        {
-            ...state,
-            post: action.payload.itemPost,
-        }
-    )
-}
+//***************************************************DEL****************************************************/
+const delItemStarted = (state) => ({
+    ...state
+});
 
-const applyPostItemFailed = (state, action) => {
-    return (
-        {
-            ...state,
-            error: action.payload.code
-        })
-}
+const delItemSuccess = (state, action) => {
+    const updatedItem = state.item.filter(item => item.id !== action.payload.itemDel.id);
 
+    console.log(action.payload.itemDel)
 
-//*********************************************DELETE******************************************/
+    return {
+        ...state,
+        item: updatedItem,
+        del: action.payload.itemDel
+    };
+};
 
-
-const applyDelItemStarted = (state) => {
-    console.log("pistacho")
-    return (
-        {
-            ...state,
-        }
-    )
-
-}
-
-const applyDelItemSuccess = (state, action) => {
-    console.log("cacahuete");
-    return (
-        {
-            ...state,
-            del: action.payload.itemDel,
-        }
-    )
-}
-
-const applyDelItemFailed = (state, action) => {
-    return (
-        {
-            ...state,
-            error: action.payload.code
-        })
-}
-
-
-
-
-
+const delItemFailed = (state, action) => ({
+    ...state,
+    error: action.payload.code
+});
 
 function itemReducer(state = INITIAL_STATE, action) {
     switch (action.type) {
         case ITEM_ACTION_REQUEST_STARTED: {
-            return applyGetItemStarted(state, action);
+            return getItemStarted(state);
         }
         case ITEM_ACTION_REQUEST_SUCCESS: {
-            return applyGetItemSuccess(state, action);
+            return getItemSuccess(state, action);
         }
         case ITEM_ACTION_REQUEST_FAILED: {
-            return applyGetItemFailed(state, action);
+            return getItemFailed(state, action);
         }
         case ITEM_POST_ACTION_REQUEST_STARTED: {
-            return applyPostItemStarted(state)
+            return postItemStarted(state)
         }
         case ITEM_POST_ACTION_REQUEST_SUCCESS: {
-            return applyPostItemSuccess(state, action)
+            return postItemSuccess(state, action)
         }
         case ITEM_POST_ACTION_REQUEST_FAILED: {
-            return applyPostItemFailed(state, action)
+            return postItemFailed(state, action)
         }
         case ITEM_DEL_ACTION_REQUEST_STARTED: {
-            return applyDelItemStarted(state, action)
+            return delItemStarted(state, action)
         }
         case ITEM_DEL_ACTION_REQUEST_SUCCESS: {
-            return applyDelItemSuccess(state, action)
+            return delItemSuccess(state, action)
         }
         case ITEM_DEL_ACTION_REQUEST_FAILED: {
-            return applyDelItemFailed(state, action)
+            return delItemFailed(state, action)
         }
 
         default: return state;
@@ -141,3 +121,5 @@ function itemReducer(state = INITIAL_STATE, action) {
 }
 
 export default itemReducer;
+
+
