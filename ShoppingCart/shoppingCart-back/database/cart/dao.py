@@ -22,3 +22,6 @@ class CartDao(BaseDao):
 
     def get_cart_by_user_id(self, user_id):
         return self.database.execute_id(queries.GET_CART_BY_ID, user_id)
+
+    def get_items_in_cart(self, cart_id):
+        return self.database.execute_id(queries.GET_ITEMS_CART, cart_id)

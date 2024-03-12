@@ -36,6 +36,14 @@ SET
 WHERE id = %(user_id)s;
 """
 
+
+GET_ITEMS_CART = """
+SELECT t.*
+FROM tshirt t
+INNER JOIN tshirt_cart tc ON t.id = tc.id_tshirt
+WHERE tc.id_cart = %s;
+"""
+
 if __name__ == '__main__':
 
 

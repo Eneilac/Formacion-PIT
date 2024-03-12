@@ -1,10 +1,30 @@
 import styled from "styled-components";
 import { RiMoneyEuroCircleLine } from "react-icons/ri";
 import { RiCloseCircleFill } from "react-icons/ri";
+import { useEffect, useState } from "react";
 
 
 
-const Cart = ({ show }) => {
+const Cart = ({ show, cart, items }) => {
+
+    const [total, setTotal] = useState(0)
+
+
+    //*sin depenedencias para que solo haga el calculo 1 vez al entrar al componente.
+    useEffect(() => {
+        totalCart()
+    })
+
+    const totalCart = () => {
+        let suma = 0;
+
+        for (const item of items) {
+            suma += item.price
+        }
+        setTotal(suma)
+    }
+
+
 
     return (
         <Container className="cart-container">
@@ -13,15 +33,20 @@ const Cart = ({ show }) => {
                     <RiCloseCircleFill className="icon" />
                 </div>
                 <div className="title">
-                    <h2>Carrito de compra</h2>
+                    <h2>Carrito de compra del usuario {cart.user_id}</h2>
                 </div>
 
                 <div className="bodyCart">
-                    <p>Producto x 4</p>
-                    <p>Producto x 2</p>
+                    {
+                        items.map((item,index)=>(
+                            <p key={index}>
+                                {item.description}
+                            </p>
+                        ))
+                    }
                 </div>
                 <div className="total">
-                    <p>Total: 45€</p>
+                    <p>Total: {total}€</p>
                 </div>
 
                 <button className="buttonCartBuy">Pagar <RiMoneyEuroCircleLine />

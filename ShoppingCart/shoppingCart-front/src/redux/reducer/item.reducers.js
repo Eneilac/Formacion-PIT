@@ -50,9 +50,6 @@ const postItemStarted = (state) => ({
 
 const postItemSuccess = (state, action) => {
     const updatedItem = [...state.item, action.payload.item];
-
-    console.log(action.payload.item)
-
     return {
         ...state,
         item: updatedItem,
@@ -72,9 +69,6 @@ const delItemStarted = (state) => ({
 
 const delItemSuccess = (state, action) => {
     const updatedItem = state.item.filter(item => item.id !== action.payload.itemDel.deleted_item_id);
-
-    console.log(state.item);
-    console.log(action.payload.itemDel.deleted_item_id);
 
     return {
         ...state,

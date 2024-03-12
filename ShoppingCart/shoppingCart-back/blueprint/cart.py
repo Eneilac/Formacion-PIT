@@ -43,3 +43,10 @@ def get_cart_by_user_id(user_id, ):
     dao = CartDao()
     return jsonify(dao.get_cart_by_user_id(user_id))
 
+
+@blueprint.route("/<int:cart_id>/items", methods=['GET'])
+def get_items_in_cart(cart_id):
+    dao = CartDao()
+    return jsonify(dao.get_items_in_cart(cart_id))
+
+

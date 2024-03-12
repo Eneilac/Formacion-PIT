@@ -8,8 +8,14 @@ import {
     CART_POST_ACTION_REQUEST_FAILED,
     CART_POST_ACTION_REQUEST_STARTED,
     CART_POST_ACTION_REQUEST_SUCCESS,
+
+    CART_GET_ITEMS_REQUEST_STARTED,
+    CART_GET_ITEMS_REQUEST_SUCCESS,
+    CART_GET_ITEMS_REQUEST_FAILED,
 } from '../../../constants/actionTypes/cart.actionTypes';
 
+
+//**********************************GET********************************/
 
 const cartActionRequestStarted = (query) => ({
     type: CART_ACTION_REQUEST_STARTED,
@@ -17,10 +23,13 @@ const cartActionRequestStarted = (query) => ({
 });
 
 
-const cartActionRequestSuccess = (cartInfo) => ({
-    type: CART_ACTION_REQUEST_SUCCESS,
-    payload: { cartInfo }
-});
+const cartActionRequestSuccess = (cartInfo) => {
+    let uniqueCart = cartInfo[0]
+    return {
+        type: CART_ACTION_REQUEST_SUCCESS,
+        payload: { uniqueCart }
+    }
+}
 
 
 const cartActionRequestFailed = (error) => ({
@@ -28,7 +37,32 @@ const cartActionRequestFailed = (error) => ({
     payload: error
 })
 
-//** POST  */
+
+//*******************************? items get************************************************
+
+const cartItemsActionRequestStarted = (query) => ({
+    type: CART_GET_ITEMS_REQUEST_STARTED,
+    payload: query
+})
+
+
+const cartItemsActionRequestSuccess = (cartInfo) => {
+    return {
+        type: CART_GET_ITEMS_REQUEST_SUCCESS,
+        payload: { cartInfo }
+    }
+}
+
+
+const cartItemsActionRequestFailed = (error) => ({
+    type: CART_GET_ITEMS_REQUEST_FAILED,
+    payload: error
+})
+
+
+
+
+//**************************************POST******************************/
 
 const cartPostActionRequestStarted = (query) => ({
     type: CART_POST_ACTION_REQUEST_STARTED,
@@ -39,7 +73,7 @@ const cartPostActionRequestStarted = (query) => ({
 const cartPostActionRequestSuccess = (cartPost) => {
     return {
         type: CART_POST_ACTION_REQUEST_SUCCESS,
-        payload: {cart:cartPost.data.cart}
+        payload: { cart: cartPost.data.cart }
     }
 };
 
@@ -48,8 +82,11 @@ const cartPostActionRequestFailed = (error) => ({
     type: CART_POST_ACTION_REQUEST_FAILED,
     payload: error
 })
+//*******************************? items post************************************************
 
-//** del  */
+
+
+//************************************DEL******************************/
 
 const cartDelActionRequestStarted = (query) => ({
     type: CART_DEL_ACTION_REQUEST_STARTED,
@@ -68,15 +105,25 @@ const cartDelActionRequestFailed = (error) => ({
     payload: error
 })
 
+//*******************************? items del ************************************************
 
 
 export {
+    //*Get
     cartActionRequestStarted,
     cartActionRequestSuccess,
     cartActionRequestFailed,
+
+    cartItemsActionRequestStarted,
+    cartItemsActionRequestSuccess,
+    cartItemsActionRequestFailed,
+
+    //*Post
     cartPostActionRequestStarted,
     cartPostActionRequestSuccess,
     cartPostActionRequestFailed,
+
+    //*Del
     cartDelActionRequestStarted,
     cartDelActionRequestSuccess,
     cartDelActionRequestFailed,

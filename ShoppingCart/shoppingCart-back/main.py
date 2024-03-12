@@ -10,6 +10,7 @@ from flask_cors import CORS
 
 app = Flask(__name__)
 app.register_blueprint(item_blueprint)
+app.register_blueprint(cart_blueprint)
 
 
 cors = CORS(app)
@@ -19,8 +20,6 @@ CORS(app, supports_credentials=True, origins=['http://localhost:5173'])
 app.config['JWT_SECRET_KEY'] = 'cacahuetesEnAlmibar'  # Cambiar esto con una clave secreta segura
 jwt = JWTManager(app)
 
-
 if __name__ == '__main__':
-
     app.run()
 

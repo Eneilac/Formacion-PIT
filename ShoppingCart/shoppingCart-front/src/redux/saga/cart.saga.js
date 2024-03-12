@@ -1,6 +1,6 @@
 import { call, put } from 'redux-saga/effects'
 import { del, get, post } from '../../services/request';
-import { cartActionRequestSuccess, cartActionRequestFailed, cartPostActionRequestSuccess, cartPostActionRequestFailed, cartDelActionRequestSuccess, cartDelActionRequestFailed } from '../actions/'
+import { cartActionRequestSuccess, cartActionRequestFailed, cartPostActionRequestSuccess, cartPostActionRequestFailed, cartDelActionRequestSuccess, cartDelActionRequestFailed, cartItemsActionRequestSuccess, cartItemsActionRequestFailed } from '../actions/'
 
 export function* fetchCart(action) {
     try {
@@ -11,6 +11,7 @@ export function* fetchCart(action) {
         yield put(cartActionRequestFailed(e))
     }
 }
+
 
 export function* postCart(action) {
     try {
@@ -28,6 +29,18 @@ export function* delCart(action) {
     } catch (e) {
         yield put(cartDelActionRequestFailed(e))
     }
+}
+
+
+export function* fetchItemsCart(action) {
+    try {
+        const response = yield call(get, action.payload);
+        yield put(cartItemsActionRequestSuccess(response))
+    } catch (e) {
+        yield put(cartItemsActionRequestFailed(e))
+    }
+
+
 }
 
 

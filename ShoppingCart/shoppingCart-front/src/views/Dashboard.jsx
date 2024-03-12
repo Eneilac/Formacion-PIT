@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import DashboardTemplate from "../templates/Dasboard.template";
 import { connect } from "react-redux";
-import { itemActionRequestStarted, itemDelActionRequestStarted, itemPostActionRequestStarted } from '../redux/actions'
+import { cartActionRequestStarted, cartItemsActionRequestStarted, itemActionRequestStarted, itemDelActionRequestStarted, itemPostActionRequestStarted } from '../redux/actions'
 import { useEffect, useState } from "react";
 import { TiShoppingCart } from "react-icons/ti";
 import Cart from "../components/Cart";
@@ -9,38 +9,45 @@ import AddItem from "../components/AddItem";
 
 
 const Dashboard = (props) => {
-    const { onLoadItemStarted, postItem, delItem } = props;
+    const { onLoadItemStarted, postItem, delItem, onLoadCartStarted, onLoadItemsCartStarted } = props;
     const [numItems, setNumItems] = useState(0);
     const [toggleCart, setToggleCart] = useState(false)
     const [addItem, setAddItem] = useState(false);
     const [del, setDel] = useState(false)
 
-  // Efecto de carga inicial
-  useEffect(() => {
-    onLoadItemStarted('/items');
-    setDel(false);
-  }, [onLoadItemStarted]); // Sin dependencias, se ejecuta solo al montar el componente
+    // Efecto de carga inicial
+    useEffect(() => {
+        onLoadItemStarted('/items');
+        onLoadCartStarted('/carts/1') //*! Pongo el id 1 para simular el usuario con id 1 ya que no tengo login
+        onLoadItemsCartStarted('/carts/1/items')
+        setDel(false);
+    }, [onLoadItemStarted, onLoadCartStarted, onLoadItemsCartStarted]);
 
 
-  useEffect(()=>{
+    useEffect(() => {
+        if (props.itemsCart.legth !== 0) {
+            setNumItems(props.itemsCart.length)
+        }
+    })
 
-  },[props.item])
 
-  
-  const show = () => {
+    const show = () => {
         setToggleCart(!toggleCart)
     }
 
     const handleSubmitItem = (newData) => {
         postItem(newData)
-        onLoadItemStarted('/items'); 
+        onLoadItemStarted('/items');
         setAddItem(!addItem)
     }
     const handleDelete = (id) => {
         delItem('/items/' + id);
-        onLoadItemStarted('/items'); 
+        onLoadItemStarted('/items');
         setDel(!del);
     }
+
+
+    
 
 
 
@@ -62,10 +69,10 @@ const Dashboard = (props) => {
             <DashboardTemplate
                 items={props.item}
                 setNumItems={setNumItems}
-                numItems={numItems}
                 addItem={addItem}
                 setAddItem={setAddItem}
                 handleDelete={handleDelete}
+                numItems={numItems}
             />
 
 
@@ -76,6 +83,8 @@ const Dashboard = (props) => {
             <div className={toggleCart ? 'cart' : 'none'}>
                 <Cart
                     show={show}
+                    cart={props.cart}
+                    items={props.itemsCart}
                 />
             </div>
             <div className={toggleCart ? 'filter' : 'none'}>
@@ -87,16 +96,23 @@ const Dashboard = (props) => {
 
 
 //? Mapeo de los props de Redux
-const mapStateToProps = (state) => ({
-    item: state.itemState.item,
-    error: state.itemState.error
-});
+const mapStateToProps = (state) => {
+    return {
+        item: state.itemState.item,
+        error: state.itemState.error,
+        cart: state.cartState.cart,
+        itemsCart: state.cartState.itemsCart
+    }
+}
+
 
 //? Mapeo de la funcion a usar de Redux
 const mapDispatchToProps = (dispatch) => ({
     onLoadItemStarted: (item) => dispatch(itemActionRequestStarted(item)),
+    onLoadCartStarted: (cart) => dispatch(cartActionRequestStarted(cart)),
+    onLoadItemsCartStarted: (query) => dispatch(cartItemsActionRequestStarted(query)),
     postItem: (data) => dispatch(itemPostActionRequestStarted(data)),
-    delItem: (id) => dispatch(itemDelActionRequestStarted(id))
+    delItem: (id) => dispatch(itemDelActionRequestStarted(id)),
 });
 
 
