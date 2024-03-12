@@ -14,8 +14,11 @@ class CartDao(BaseDao):
 
     def post_cart(self, cart_data):
         values = [cart_data['creation'], cart_data['paid']]
-
         return self.database.execute_id(queries.POST_CART, values)
+
+    def post_item_cart(self, cart_data):
+        values = [cart_data['id_cart'], cart_data['id_tshirt']]
+        return self.database.execute_id(queries.POST_ITEMS_CART, values)
 
     def delete_cart_by_user_id(self, user_id):
         return self.database.execute_id(queries.DEL_CART, user_id)

@@ -3,22 +3,28 @@ import icons from "../utils/icons";
 import styled from "styled-components";
 
 
-const Card = ({ item, setNumItems, numItems, handleDelete }) => {
+const Card = ({ item, setNumItems, numItems, handleDelete, submit }) => {
   const [isClicked, setIsClicked] = useState(false);
 
 
 
 
 
-
   return (
-    <Container className={isClicked?'click':''}>
-      <div className={`main ${isClicked ? 'clicked' : ''}`}  onClick={() => setIsClicked(!isClicked)}>
+    <Container className={isClicked ? 'click' : ''}>
+      <div className={`main ${isClicked ? 'clicked' : ''}`} onClick={() => setIsClicked(!isClicked)}>
         <div className={`card ${isClicked ? 'clicked' : ''}`}>
           <div className="heading">{item.name}</div>
           <div className="details">{item.description}</div>
           <div className="price">{item.price} €</div>
-          <button className="btn1" onClick={() => { setNumItems(numItems + 1) }}>Añadir al carrito</button>
+          <button className="btn1" onClick={() => {
+            submit(
+              {
+              i: item,
+              q: '/carts/item'
+            })
+            setNumItems(numItems + 1)
+          }}>Añadir al carrito</button>
           <button className='trash btn2' onClick={() => { handleDelete(item.id) }}>
             {<icons.trashIcon />}
           </button>
@@ -112,6 +118,7 @@ justify-content: center;
   transition: .4s ease-in-out;
   font-weight: bold;
   opacity: 0;
+  cursor: pointer;
 }
 
 

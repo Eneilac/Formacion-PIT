@@ -30,6 +30,27 @@ export function post(data) {
 
 }
 
+//*Temporal
+export function postItem(data) {
+
+    let newData = {
+        id_cart: 1,
+        id_tshirt: data.id
+    }
+
+    try {
+        return axios.post(API_BASE_URL + '/carts/item', newData,
+            {
+                headers: { "Content-type": "application/json;charset=UTF-8" },
+                'data': JSON.stringify(data),
+            }
+        )
+    } catch (error) {
+        return error;
+    }
+
+}
+
 export function patch(path, data) {
     try {
         return fetch(API_BASE_URL + path, {

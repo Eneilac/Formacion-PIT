@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Card from "../components/Card";
 
-const DashboardTemplate = ({ items, setNumItems, numItems, addItem, setAddItem, handleDelete }) => {
+const DashboardTemplate = ({ items, setNumItems, numItems, addItem, setAddItem, handleDelete, submit }) => {
     return (
         <Container>
             <section>
@@ -21,6 +21,7 @@ const DashboardTemplate = ({ items, setNumItems, numItems, addItem, setAddItem, 
                             setNumItems={setNumItems}
                             numItems={numItems}
                             handleDelete={handleDelete}
+                            submit={submit}
                         />
                     )) : ''
                 }

@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import DashboardTemplate from "../templates/Dasboard.template";
 import { connect } from "react-redux";
-import { cartActionRequestStarted, cartItemsActionRequestStarted, itemActionRequestStarted, itemDelActionRequestStarted, itemPostActionRequestStarted } from '../redux/actions'
+import {cartActionRequestStarted,cartItemPostActionRequestStarted,cartItemsActionRequestStarted,itemActionRequestStarted,itemDelActionRequestStarted,itemPostActionRequestStarted
+} from '../redux/actions'
 import { useEffect, useState } from "react";
 import { TiShoppingCart } from "react-icons/ti";
 import Cart from "../components/Cart";
@@ -9,7 +10,7 @@ import AddItem from "../components/AddItem";
 
 
 const Dashboard = (props) => {
-    const { onLoadItemStarted, postItem, delItem, onLoadCartStarted, onLoadItemsCartStarted } = props;
+    const { onLoadItemStarted, postItem, delItem, onLoadCartStarted, onLoadItemsCartStarted, postItemCart } = props;
     const [numItems, setNumItems] = useState(0);
     const [toggleCart, setToggleCart] = useState(false)
     const [addItem, setAddItem] = useState(false);
@@ -28,7 +29,7 @@ const Dashboard = (props) => {
         if (props.itemsCart.legth !== 0) {
             setNumItems(props.itemsCart.length)
         }
-    })
+    }, [props.itemsCart])
 
 
     const show = () => {
@@ -44,6 +45,11 @@ const Dashboard = (props) => {
         delItem('/items/' + id);
         onLoadItemStarted('/items');
         setDel(!del);
+    }
+
+    const handleSubmitItemCart = (newData) => {
+        postItemCart(newData)
+        onLoadCartStarted('/carts/1')
     }
 
 
@@ -68,6 +74,7 @@ const Dashboard = (props) => {
                 setAddItem={setAddItem}
                 handleDelete={handleDelete}
                 numItems={numItems}
+                submit={handleSubmitItemCart}
             />
 
 
@@ -107,6 +114,7 @@ const mapDispatchToProps = (dispatch) => ({
     onLoadCartStarted: (cart) => dispatch(cartActionRequestStarted(cart)),
     onLoadItemsCartStarted: (query) => dispatch(cartItemsActionRequestStarted(query)),
     postItem: (data) => dispatch(itemPostActionRequestStarted(data)),
+    postItemCart: (item) => dispatch(cartItemPostActionRequestStarted(item)),
     delItem: (id) => dispatch(itemDelActionRequestStarted(id)),
 });
 

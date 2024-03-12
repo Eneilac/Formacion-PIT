@@ -50,3 +50,15 @@ def get_items_in_cart(cart_id):
     return jsonify(dao.get_items_in_cart(cart_id))
 
 
+@blueprint.route("/item", methods=['POST'])
+def post_items_in_cart():
+    data = request.get_json()
+    try:
+        dao = CartDao()
+        dao.post_item_cart(data)
+        return jsonify({'success': 'item añadido creado correctamente'}), 200
+    except Exception as e:
+        # Manejo de errores
+        print(e)
+        return jsonify({'error': e}), 500
+

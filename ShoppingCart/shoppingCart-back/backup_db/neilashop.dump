@@ -1,8 +1,8 @@
 -- MySQL dump 10.13  Distrib 8.0.18, for Win64 (x86_64)
 --
--- Host: localhost    Database: neilashop
+-- Host: 127.0.0.1    Database: neilashop
 -- ------------------------------------------------------
--- Server version	8.0.36
+-- Server version	8.0.35
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -58,7 +58,7 @@ CREATE TABLE `tshirt` (
   `price` int NOT NULL DEFAULT '0',
   `image_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '/img/porDefecto.png',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=111 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=113 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -79,13 +79,15 @@ DROP TABLE IF EXISTS `tshirt_cart`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tshirt_cart` (
-  `id_cart` int NOT NULL,
-  `id_tshirt` int NOT NULL,
-  PRIMARY KEY (`id_cart`,`id_tshirt`),
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_cart` int DEFAULT NULL,
+  `id_tshirt` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_cart` (`id_cart`),
   KEY `id_tshirt` (`id_tshirt`),
-  CONSTRAINT `tshirt_cart_ibfk_2` FOREIGN KEY (`id_tshirt`) REFERENCES `tshirt` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `tshirt_cart_ibfk_3` FOREIGN KEY (`id_cart`) REFERENCES `cart` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  CONSTRAINT `tshirt_cart_ibfk_1` FOREIGN KEY (`id_cart`) REFERENCES `cart` (`id`),
+  CONSTRAINT `tshirt_cart_ibfk_2` FOREIGN KEY (`id_tshirt`) REFERENCES `tshirt` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -94,7 +96,7 @@ CREATE TABLE `tshirt_cart` (
 
 LOCK TABLES `tshirt_cart` WRITE;
 /*!40000 ALTER TABLE `tshirt_cart` DISABLE KEYS */;
-INSERT INTO `tshirt_cart` VALUES (1,3),(2,3),(3,3),(1,4),(1,7),(1,10),(1,12);
+INSERT INTO `tshirt_cart` VALUES (1,1,3),(2,1,4),(3,1,5),(4,1,8),(5,1,7);
 /*!40000 ALTER TABLE `tshirt_cart` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -139,4 +141,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-03-12 22:00:25
+-- Dump completed on 2024-03-12 23:10:44

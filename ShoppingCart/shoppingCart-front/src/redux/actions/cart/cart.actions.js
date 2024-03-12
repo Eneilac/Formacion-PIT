@@ -87,10 +87,15 @@ const cartPostActionRequestFailed = (error) => ({
 })
 //*******************************? items post************************************************
 
-const cartItemPostActionRequestStarted = (query) => ({
-    type: CART_POST_ITEMS_REQUEST_STARTED,
-    payload: query
-});
+const cartItemPostActionRequestStarted = (query) => {
+   console.log(query)
+   
+    return {
+        type: CART_POST_ITEMS_REQUEST_STARTED,
+        payload: query
+    }
+}
+
 
 
 const cartItemPostActionRequestSuccess = (cartPost) => {
