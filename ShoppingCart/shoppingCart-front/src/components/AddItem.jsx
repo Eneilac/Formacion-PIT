@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { RiCloseCircleFill } from "react-icons/ri";
 import { useState } from "react";
 
-const AddItem = ({ addItem, setAddItem, handleSubmit }) => {
+const AddItem = ({ addItem, setAddItem, handleSubmitItem }) => {
 
     const [formData, setFormData] = useState({
         name: "",
@@ -55,7 +55,7 @@ const AddItem = ({ addItem, setAddItem, handleSubmit }) => {
             />
 
             <button type="submit" onClick={() => {
-                handleSubmit(formData)
+                handleSubmitItem(formData)
                 setAddItem(!addItem)
             }}>Crear</button>
         </Container >

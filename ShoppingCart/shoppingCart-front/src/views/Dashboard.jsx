@@ -31,7 +31,7 @@ const Dashboard = (props) => {
         setToggleCart(!toggleCart)
     }
 
-    const handleSubmit = (newData) => {
+    const handleSubmitItem = (newData) => {
         postItem(newData)
         onLoadItemStarted('/items'); 
         setAddItem(!addItem)
@@ -42,6 +42,9 @@ const Dashboard = (props) => {
         setDel(!del);
     }
 
+
+
+
     return (
         <Container>
             {
@@ -50,7 +53,7 @@ const Dashboard = (props) => {
                         <AddItem
                             addItem={addItem}
                             setAddItem={setAddItem}
-                            handleSubmit={handleSubmit}
+                            handleSubmitItem={handleSubmitItem}
                         />
                     </div>
                 </div> : ''
@@ -73,7 +76,6 @@ const Dashboard = (props) => {
             <div className={toggleCart ? 'cart' : 'none'}>
                 <Cart
                     show={show}
-
                 />
             </div>
             <div className={toggleCart ? 'filter' : 'none'}>

@@ -31,31 +31,15 @@ def post_cart():
         return jsonify({'error': e}), 500
 
 
-@blueprint.route("/<int:cart_id>", methods=['DELETE'])
-def delete_cart_by_id(cart_id):
+@blueprint.route("/<int:user_id>", methods=['DELETE'])
+def delete_cart_by_id(user_id):
     dao = CartDao()
-    dao.delete_cart_by_id(cart_id)
+    dao.delete_cart_by_user_id(user_id)
     return jsonify({'msg': ''}), 200
 
 
-@blueprint.route("", methods=['PATCH'])
-def patch_cart_by_id():
-    data = request.json
-    if not data:
-        return jsonify({'error': 'Datos no proporcionados'}), 400
-
+@blueprint.route("/<int:user_id>", methods=['GET'])
+def get_cart_by_user_id(user_id, ):
     dao = CartDao()
-    try:
-        dao.patch_cart_by_id(data)
-        return jsonify({'msg': 'Usuario actualizado correctamente'}), 200
-    except Exception as e:
-        # Manejo de errores
-        print(e)
-        return jsonify({'error': 'Error interno del servidor'}), 500
-
-
-@blueprint.route("/<int:cart_id>", methods=['GET'])
-def get_cart_by_id(cart_id, ):
-    dao = CartDao()
-    return jsonify(dao.get_cart_by_id(cart_id))
+    return jsonify(dao.get_cart_by_user_id(user_id))
 

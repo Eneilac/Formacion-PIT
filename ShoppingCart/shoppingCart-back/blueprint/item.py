@@ -20,15 +20,14 @@ def get_items():
 
 @blueprint.route('', methods=['POST'])
 def post_item():
-    data = request.get_json()  # Gracias a request que guardo los datos que manda al servidor estando el usuario almace
+    data = request.get_json()
     try:
         dao = ItemDao()
-        dao.post_item(data)  # Introduzco los datos obtenidos hacia el post_item donde se ubica la query
-        return jsonify({'success': 'Item creado correctamente'}), 200
+        dao.post_item(data)
+        data['image_url'] = '/img/porDefecto.png'
+        return jsonify({'success': 'Item creado correctamente', 'item': data}), 200
     except Exception as e:
-        # Manejo de errores
-        print(e)
-        return jsonify({'error': e}), 500
+        return jsonify({'error': str(e)}), 500
 
 
 @blueprint.route('/<int:item_id>', methods=['DELETE'])

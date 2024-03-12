@@ -22,7 +22,6 @@ export function post(data) {
             {
                 headers: { "Content-type": "application/json;charset=UTF-8" },
                 'data': JSON.stringify(data),
-
             }
         )
     } catch (error) {

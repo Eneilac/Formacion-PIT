@@ -6,7 +6,7 @@ SELECT * FROM cart;
 
 GET_CART_BY_ID = """
 SELECT * FROM cart 
-WHERE id = %s
+WHERE user_id = %s
 """
 
 POST_CART = """
