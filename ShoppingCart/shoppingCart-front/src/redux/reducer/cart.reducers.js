@@ -11,6 +11,9 @@ import {
     CART_POST_ACTION_REQUEST_FAILED,
     CART_POST_ACTION_REQUEST_STARTED,
     CART_POST_ACTION_REQUEST_SUCCESS,
+    CART_POST_ITEMS_REQUEST_FAILED,
+    CART_POST_ITEMS_REQUEST_STARTED,
+    CART_POST_ITEMS_REQUEST_SUCCESS,
 } from "../../constants/actionTypes/cart.actionTypes.js";
 
 
@@ -88,6 +91,32 @@ const postCartFailed = (state, action) => ({
     error: action.payload.code
 });
 
+
+//*******************************? items post************************************************
+
+
+const postItemCartStarted = (state) => ({
+    ...state
+});
+
+const postItemCartSuccess = (state, action) => {
+    const updatedCart = [...state.Cart, action.payload.Cart];
+
+    return {
+        ...state,
+        cart: updatedCart,
+        postItem: action.payload.CartPost
+    };
+};
+
+const postItemCartFailed = (state, action) => ({
+    ...state,
+    error: action.payload.code
+});
+
+
+
+
 //***************************************************DEL****************************************************/
 const delCartStarted = (state) => ({
     ...state
@@ -109,7 +138,7 @@ const delCartFailed = (state, action) => ({
 
 function CartReducer(state = INITIAL_STATE, action) {
     switch (action.type) {
-        
+
         case CART_ACTION_REQUEST_STARTED: {
             return getCartStarted(state);
         }
@@ -149,6 +178,18 @@ function CartReducer(state = INITIAL_STATE, action) {
         case CART_GET_ITEMS_REQUEST_FAILED: {
             return getCartItemsFailed(state, action)
         }
+
+        case CART_POST_ITEMS_REQUEST_STARTED: {
+            return postItemCartStarted(state, action)
+        }
+        case CART_POST_ITEMS_REQUEST_SUCCESS: {
+            return postItemCartSuccess(state, action)
+        }
+        case CART_POST_ITEMS_REQUEST_FAILED: {
+            return postItemCartFailed(state, action)
+        }
+
+
 
 
         default: return state;

@@ -12,6 +12,9 @@ import {
     CART_GET_ITEMS_REQUEST_STARTED,
     CART_GET_ITEMS_REQUEST_SUCCESS,
     CART_GET_ITEMS_REQUEST_FAILED,
+    CART_POST_ITEMS_REQUEST_STARTED,
+    CART_POST_ITEMS_REQUEST_SUCCESS,
+    CART_POST_ITEMS_REQUEST_FAILED,
 } from '../../../constants/actionTypes/cart.actionTypes';
 
 
@@ -84,6 +87,24 @@ const cartPostActionRequestFailed = (error) => ({
 })
 //*******************************? items post************************************************
 
+const cartItemPostActionRequestStarted = (query) => ({
+    type: CART_POST_ITEMS_REQUEST_STARTED,
+    payload: query
+});
+
+
+const cartItemPostActionRequestSuccess = (cartPost) => {
+    return {
+        type: CART_POST_ITEMS_REQUEST_SUCCESS,
+        payload: { cart: cartPost.data.cart }
+    }
+};
+
+
+const cartItemPostActionRequestFailed = (error) => ({
+    type: CART_POST_ITEMS_REQUEST_FAILED,
+    payload: error
+})
 
 
 //************************************DEL******************************/
@@ -122,6 +143,12 @@ export {
     cartPostActionRequestStarted,
     cartPostActionRequestSuccess,
     cartPostActionRequestFailed,
+
+    cartItemPostActionRequestStarted,
+    cartItemPostActionRequestSuccess,
+    cartItemPostActionRequestFailed,
+
+
 
     //*Del
     cartDelActionRequestStarted,
