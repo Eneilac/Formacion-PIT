@@ -39,3 +39,4 @@ class Database:
     def commit(self):
         if self.connection:
             self.connection.commit()
+

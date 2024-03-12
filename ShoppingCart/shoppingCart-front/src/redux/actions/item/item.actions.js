@@ -43,7 +43,6 @@ const itemPostActionRequestStarted = (query) => ({
 
 const itemPostActionRequestSuccess = (itemPost) => {
 
-    console.log(itemPost.data.item)
     return {
         type: ITEM_POST_ACTION_REQUEST_SUCCESS,
         payload: { item: itemPost.data.item }
@@ -65,9 +64,6 @@ const itemDelActionRequestStarted = (query) => ({
 
 
 const itemDelActionRequestSuccess = (itemDel) => {
-
-    console.log(itemDel)
-
     return {
         type: ITEM_DEL_ACTION_REQUEST_SUCCESS,
         payload: { itemDel }

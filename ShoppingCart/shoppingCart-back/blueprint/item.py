@@ -23,10 +23,16 @@ def post_item():
     data = request.get_json()
     try:
         dao = ItemDao()
+
+        # Ejecutar la consulta de inserción y obtener la última ID insertada
         dao.post_item(data)
+
+        # Modificar el objeto 'data' con la nueva información
         data['image_url'] = '/img/porDefecto.png'
+
         return jsonify({'success': 'Item creado correctamente', 'item': data}), 200
     except Exception as e:
+        print(f"Error en la ruta /items: {str(e)}")
         return jsonify({'error': str(e)}), 500
 
 
@@ -34,8 +40,9 @@ def post_item():
 def delete_item_by_id(item_id):
     dao = ItemDao()
     try:
+        print(item_id)
         dao.delete_item_by_id(item_id)
-        return jsonify({'message': 'Item deleted successfully'})
+        return jsonify({'message': 'Item deleted successfully', 'deleted_item_id': item_id})
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 

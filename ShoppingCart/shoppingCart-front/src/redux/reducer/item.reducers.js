@@ -16,7 +16,8 @@ const INITIAL_STATE = {
     item: [],
     error: null,
     post: null,
-    del: null
+    del: null,
+    idNewItem:null
 };
 
 
@@ -49,10 +50,13 @@ const postItemStarted = (state) => ({
 
 const postItemSuccess = (state, action) => {
     const updatedItem = [...state.item, action.payload.item];
+
+    console.log(action.payload.item)
+
     return {
         ...state,
         item: updatedItem,
-        post: action.payload.itemPost
+        post: action.payload.itemPost,
     };
 };
 
@@ -67,18 +71,18 @@ const delItemStarted = (state) => ({
 });
 
 const delItemSuccess = (state, action) => {
+    const updatedItem = state.item.filter(item => item.id !== action.payload.itemDel.deleted_item_id);
 
-    console.log( action.payload.itemDel.id)
-    const updatedItem = state.item.filter(item => item.id !== action.payload.itemDel.id);
-
-    console.log(action.payload.itemDel)
+    console.log(state.item);
+    console.log(action.payload.itemDel.deleted_item_id);
 
     return {
         ...state,
-        item: updatedItem,
+        item: [...updatedItem],  // Crea un nuevo array con los elementos actualizados
         del: action.payload.itemDel
     };
 };
+
 
 const delItemFailed = (state, action) => ({
     ...state,

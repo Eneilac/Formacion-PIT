@@ -44,16 +44,21 @@ export function patch(path, data) {
 }
 
 export function del(data) {
-    console.log("entro" + data)
-  
     try {
         return fetch(API_BASE_URL + data, {
             method: "DELETE",
             headers: { "Content-type": "application/json;charset=UTF-8" }
-        });
+        })
+            .then(response => response.json())
+            .then(data => {
+                return data;
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                throw error;
+            });
     } catch (error) {
         console.log(error);
     }
-
 }
 

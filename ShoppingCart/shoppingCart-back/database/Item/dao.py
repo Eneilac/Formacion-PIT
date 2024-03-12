@@ -31,3 +31,5 @@ class ItemDao(BaseDao):
 
     def get_item_by_id(self, item_id):
         return self.database.execute_id(queries.GET_ITEM_BY_ID, item_id)
+
+
