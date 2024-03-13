@@ -1,12 +1,15 @@
 import styled from "styled-components";
 import DashboardTemplate from "../templates/Dasboard.template";
 import { connect } from "react-redux";
-import {cartActionRequestStarted,cartItemPostActionRequestStarted,cartItemsActionRequestStarted,itemActionRequestStarted,itemDelActionRequestStarted,itemPostActionRequestStarted
+import {
+    cartActionRequestStarted, cartItemPostActionRequestStarted, cartItemsActionRequestStarted, itemActionRequestStarted, itemDelActionRequestStarted, itemPostActionRequestStarted
 } from '../redux/actions'
 import { useEffect, useState } from "react";
 import { TiShoppingCart } from "react-icons/ti";
 import Cart from "../components/Cart";
 import AddItem from "../components/AddItem";
+import {  useRecoilValue } from "recoil";
+import { items } from "../recoil/atoms";
 
 
 const Dashboard = (props) => {
@@ -14,16 +17,21 @@ const Dashboard = (props) => {
     const [numItems, setNumItems] = useState(0);
     const [toggleCart, setToggleCart] = useState(false)
     const [addItem, setAddItem] = useState(false);
-    const [del, setDel] = useState(false)
+    const [del, setDel] = useState(false);
+
+    
+    const itemsRecoil = useRecoilValue(items);
 
     // Efecto de carga inicial
     useEffect(() => {
-        onLoadItemStarted('/items');
         onLoadCartStarted('/carts/1') //*! Pongo el id 1 para simular el usuario con id 1 ya que no tengo login
         onLoadItemsCartStarted('/carts/1/items')
         setDel(false);
+
     }, [onLoadItemStarted, onLoadCartStarted, onLoadItemsCartStarted]);
 
+
+    //*? Intento de traer los items con Recoil
 
     useEffect(() => {
         if (props.itemsCart.legth !== 0) {
@@ -41,6 +49,13 @@ const Dashboard = (props) => {
         onLoadItemStarted('/items');
         setAddItem(!addItem)
     }
+
+
+
+
+
+
+
     const handleDelete = (id) => {
         delItem('/items/' + id);
         onLoadItemStarted('/items');
@@ -56,19 +71,21 @@ const Dashboard = (props) => {
     return (
         <Container>
             {
-                addItem ? <div className="add-items-container">
+                addItem && <div className="add-items-container">
                     <div className="addItem">
                         <AddItem
                             addItem={addItem}
                             setAddItem={setAddItem}
                             handleSubmitItem={handleSubmitItem}
+                            // set={setItemsRecoil}
+                            // items={itemsRecoil}
                         />
                     </div>
-                </div> : ''
+                </div>
             }
 
             <DashboardTemplate
-                items={props.item}
+                items={itemsRecoil}
                 setNumItems={setNumItems}
                 addItem={addItem}
                 setAddItem={setAddItem}

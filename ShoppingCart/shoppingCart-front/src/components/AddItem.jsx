@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import { RiCloseCircleFill } from "react-icons/ri";
 import { useState } from "react";
+import { post } from "../services/request";
 
-const AddItem = ({ addItem, setAddItem, handleSubmitItem }) => {
+const AddItem = ({ addItem, setAddItem, items }) => {
 
     const [formData, setFormData] = useState({
         name: "",
@@ -13,14 +14,18 @@ const AddItem = ({ addItem, setAddItem, handleSubmitItem }) => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        
+
         setFormData((prevData) => ({
             ...prevData,
             [name]: value,
         }));
     };
 
-
+    const handleCustom = () => {
+        let newObject = [...items, formData ];
+            // set(newObject);
+            post(formData)
+    };
 
 
     return (
@@ -55,7 +60,7 @@ const AddItem = ({ addItem, setAddItem, handleSubmitItem }) => {
             />
 
             <button type="submit" onClick={() => {
-                handleSubmitItem(formData)
+                handleCustom()
                 setAddItem(!addItem)
             }}>Crear</button>
         </Container >
