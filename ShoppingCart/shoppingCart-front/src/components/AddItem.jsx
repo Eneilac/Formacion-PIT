@@ -1,15 +1,15 @@
 import styled from "styled-components";
 import { RiCloseCircleFill } from "react-icons/ri";
 import { useState } from "react";
-import { post } from "../services/request";
 
-const AddItem = ({ addItem, setAddItem, items }) => {
+const AddItem = ({ toggle, setToggle, handleSubmit }) => {
 
     const [formData, setFormData] = useState({
         name: "",
         description: "",
         size: "XL",
         price: 0,
+        image_url: '/img/porDefecto.png'
     });
 
     const handleChange = (e) => {
@@ -21,16 +21,11 @@ const AddItem = ({ addItem, setAddItem, items }) => {
         }));
     };
 
-    const handleCustom = () => {
-        let newObject = [...items, formData ];
-            // set(newObject);
-            post(formData)
-    };
 
 
     return (
         <Container>
-            <div className="close" onClick={() => { setAddItem(!addItem) }}>
+            <div className="close" onClick={() => { setToggle(!toggle) }}>
                 <RiCloseCircleFill className="icon" />
             </div>
             <h2>Añadir un elemento</h2>
@@ -60,8 +55,8 @@ const AddItem = ({ addItem, setAddItem, items }) => {
             />
 
             <button type="submit" onClick={() => {
-                handleCustom()
-                setAddItem(!addItem)
+                handleSubmit(formData)
+                setToggle(!toggle)
             }}>Crear</button>
         </Container >
     )

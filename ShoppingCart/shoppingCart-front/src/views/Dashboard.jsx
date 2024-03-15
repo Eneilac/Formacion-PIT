@@ -1,37 +1,43 @@
 import styled from "styled-components";
 import DashboardTemplate from "../templates/Dasboard.template";
 import { connect } from "react-redux";
-import {
-    cartActionRequestStarted, cartItemPostActionRequestStarted, cartItemsActionRequestStarted, itemActionRequestStarted, itemDelActionRequestStarted, itemPostActionRequestStarted
-} from '../redux/actions'
+import { cartActionRequestStarted, cartItemPostActionRequestStarted, cartItemsActionRequestStarted, itemActionRequestStarted, itemPostActionRequestStarted } from '../redux/actions'
 import { useEffect, useState } from "react";
 import { TiShoppingCart } from "react-icons/ti";
 import Cart from "../components/Cart";
 import AddItem from "../components/AddItem";
-import {  useRecoilValue } from "recoil";
-import { items } from "../recoil/atoms";
+import { useRecoilState } from "recoil";
+import { getItems } from "../recoil/atoms";
+import { get, del } from "../services/request";
 
 
 const Dashboard = (props) => {
-    const { onLoadItemStarted, postItem, delItem, onLoadCartStarted, onLoadItemsCartStarted, postItemCart } = props;
+    const { onLoadItemStarted, postItem, onLoadCartStarted, onLoadItemsCartStarted, postItemCart } = props;
     const [numItems, setNumItems] = useState(0);
     const [toggleCart, setToggleCart] = useState(false)
-    const [addItem, setAddItem] = useState(false);
-    const [del, setDel] = useState(false);
-
-    
-    const itemsRecoil = useRecoilValue(items);
+    const [toggleItem, setToggleItem] = useState(false);
+    const [delItem, setDel] = useState(false);
+    const [items, setItem] = useRecoilState(getItems)
 
     // Efecto de carga inicial
     useEffect(() => {
         onLoadCartStarted('/carts/1') //*! Pongo el id 1 para simular el usuario con id 1 ya que no tengo login
         onLoadItemsCartStarted('/carts/1/items')
         setDel(false);
-
     }, [onLoadItemStarted, onLoadCartStarted, onLoadItemsCartStarted]);
 
 
     //*? Intento de traer los items con Recoil
+
+    useEffect(() => {
+        async function fetchItems() {
+            let items = await get('/items')
+            setItem(items)
+        }
+        fetchItems()
+    }, [items.legth])
+
+
 
     useEffect(() => {
         if (props.itemsCart.legth !== 0) {
@@ -39,27 +45,23 @@ const Dashboard = (props) => {
         }
     }, [props.itemsCart])
 
-
     const show = () => {
         setToggleCart(!toggleCart)
     }
 
     const handleSubmitItem = (newData) => {
+        let _item = [...items, newData]
+        setItem(_item)
         postItem(newData)
-        onLoadItemStarted('/items');
-        setAddItem(!addItem)
+        setToggleItem(!toggleItem)
     }
 
-
-
-
-
-
-
     const handleDelete = (id) => {
-        delItem('/items/' + id);
-        onLoadItemStarted('/items');
-        setDel(!del);
+        const _items = [...items]
+        const updatedItem = _items.filter(item => item.id !== id);
+        setItem(updatedItem)
+        del(`/items/${id}`)
+        setDel(!delItem);
     }
 
     const handleSubmitItemCart = (newData) => {
@@ -71,34 +73,33 @@ const Dashboard = (props) => {
     return (
         <Container>
             {
-                addItem && <div className="add-items-container">
+                //*Modal de añadir items 
+
+                toggleItem && <div className="add-items-container">
                     <div className="addItem">
                         <AddItem
-                            addItem={addItem}
-                            setAddItem={setAddItem}
-                            handleSubmitItem={handleSubmitItem}
-                            // set={setItemsRecoil}
-                            // items={itemsRecoil}
+                            toggle={toggleItem}
+                            setToggle={setToggleCart}
+                            handleSubmit={handleSubmitItem}
                         />
                     </div>
                 </div>
             }
 
+
             <DashboardTemplate
-                items={itemsRecoil}
                 setNumItems={setNumItems}
-                addItem={addItem}
-                setAddItem={setAddItem}
                 handleDelete={handleDelete}
                 numItems={numItems}
+                toggle={toggleItem}
+                setToggle={setToggleItem}
                 submit={handleSubmitItemCart}
+                items={items}
             />
-
 
             <div className="buttonCart" onClick={() => { show() }}>
                 {numItems} <TiShoppingCart />
             </div>
-
             <div className={toggleCart ? 'cart' : 'none'}>
                 <Cart
                     show={show}
@@ -107,7 +108,6 @@ const Dashboard = (props) => {
                 />
             </div>
             <div className={toggleCart ? 'filter' : 'none'}>
-
             </div>
         </Container>
     )
@@ -132,7 +132,6 @@ const mapDispatchToProps = (dispatch) => ({
     onLoadItemsCartStarted: (query) => dispatch(cartItemsActionRequestStarted(query)),
     postItem: (data) => dispatch(itemPostActionRequestStarted(data)),
     postItemCart: (item) => dispatch(cartItemPostActionRequestStarted(item)),
-    delItem: (id) => dispatch(itemDelActionRequestStarted(id)),
 });
 
 

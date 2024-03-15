@@ -1,11 +1,12 @@
 import styled from "styled-components";
 import Card from "../components/Card";
 
-const DashboardTemplate = ({ items, setNumItems, numItems, addItem, setAddItem, handleDelete, submit }) => {
+
+const DashboardTemplate = ({ setNumItems, numItems, toggle, setToggle, handleDelete, items, submit }) => {
     return (
         <Container>
             <section>
-                <button className="additem-button" onClick={() => { setAddItem(!addItem) }}>
+                <button className="additem-button" onClick={() => { setToggle(!toggle) }}>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"></path><path fill="currentColor" d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z"></path></svg>
                     <span>Añadir producto</span>
                 </button>
@@ -14,7 +15,7 @@ const DashboardTemplate = ({ items, setNumItems, numItems, addItem, setAddItem, 
 
                 {
 
-                    items && items ? items.map((item, index) => (
+                    items && items !== null ? items.map((item, index) => (
                         <Card
                             key={index}
                             item={item}
@@ -23,7 +24,7 @@ const DashboardTemplate = ({ items, setNumItems, numItems, addItem, setAddItem, 
                             handleDelete={handleDelete}
                             submit={submit}
                         />
-                    )) : ''
+                    )) : 'No hay items en el carrito'
                 }
             </section>
         </Container>

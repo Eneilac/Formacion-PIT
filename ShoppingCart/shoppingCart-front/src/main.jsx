@@ -10,7 +10,7 @@ const store = storeConfig({ initialState: {} });
 
 root.render(
     <React.StrictMode>
-        <RecoilRoot>
+        <RecoilRoot >
             <Provider store={store}>
                 <App />
             </Provider>
