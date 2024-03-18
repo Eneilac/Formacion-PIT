@@ -9,6 +9,7 @@ const Cart = ({ show, cart, items }) => {
 
     const [total, setTotal] = useState(0)
 
+    console.log(cart)
 
     //*sin depenedencias para que solo haga el calculo 1 vez al entrar al componente.
     useEffect(() => {

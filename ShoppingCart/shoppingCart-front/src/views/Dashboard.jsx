@@ -1,49 +1,37 @@
 import styled from "styled-components";
 import DashboardTemplate from "../templates/Dasboard.template";
-import { connect } from "react-redux";
-import { cartActionRequestStarted, cartItemPostActionRequestStarted, cartItemsActionRequestStarted, itemActionRequestStarted, itemPostActionRequestStarted } from '../redux/actions'
 import { useEffect, useState } from "react";
 import { TiShoppingCart } from "react-icons/ti";
 import Cart from "../components/Cart";
 import AddItem from "../components/AddItem";
 import { useRecoilState } from "recoil";
-import { getItems } from "../recoil/atoms";
+import {  itemsAtom, cartAtom, itemsCartAtom } from "../recoil/atoms";
 import { get, del } from "../services/request";
 
 
-const Dashboard = (props) => {
-    const { onLoadItemStarted, postItem, onLoadCartStarted, onLoadItemsCartStarted, postItemCart } = props;
+const Dashboard = () => {
     const [numItems, setNumItems] = useState(0);
     const [toggleCart, setToggleCart] = useState(false)
     const [toggleItem, setToggleItem] = useState(false);
     const [delItem, setDel] = useState(false);
-    const [items, setItem] = useRecoilState(getItems)
-
-    // Efecto de carga inicial
-    useEffect(() => {
-        onLoadCartStarted('/carts/1') //*! Pongo el id 1 para simular el usuario con id 1 ya que no tengo login
-        onLoadItemsCartStarted('/carts/1/items')
-        setDel(false);
-    }, [onLoadItemStarted, onLoadCartStarted, onLoadItemsCartStarted]);
-
+    const [items, setItem] = useRecoilState(itemsAtom)
+    const [cart, setCart] = useRecoilState(cartAtom); // Usar la clave cartState
+    const [itemsCart, setItemsCart] = useRecoilState(itemsCartAtom); // Usar la clave itemsCartState
 
     //*? Intento de traer los items con Recoil
 
     useEffect(() => {
-        async function fetchItems() {
-            let items = await get('/items')
-            setItem(items)
-        }
         fetchItems()
+        fetchItemsCart()
     }, [items.legth])
 
 
 
     useEffect(() => {
-        if (props.itemsCart.legth !== 0) {
-            setNumItems(props.itemsCart.length)
+        if (items.legth !== 0) {
+            setNumItems(items.length)
         }
-    }, [props.itemsCart])
+    }, [items])
 
     const show = () => {
         setToggleCart(!toggleCart)
@@ -52,7 +40,7 @@ const Dashboard = (props) => {
     const handleSubmitItem = (newData) => {
         let _item = [...items, newData]
         setItem(_item)
-        postItem(newData)
+        // postItem(newData)
         setToggleItem(!toggleItem)
     }
 
@@ -65,9 +53,24 @@ const Dashboard = (props) => {
     }
 
     const handleSubmitItemCart = (newData) => {
-        postItemCart(newData)
-        onLoadCartStarted('/carts/1')
+        // postItemCart(newData)
+        //onLoadCartStarted('/carts/1')
     }
+
+
+    async function fetchItems() {
+        let items = await get('/items')
+        setItem(items)
+    }
+
+    async function fetchItemsCart() {
+        let cart = await get('/carts/1')
+        let itemsCart = await get('/carts/1/items')
+
+        setCart(cart)
+        setItemsCart(itemsCart)
+    }
+
 
 
     return (
@@ -103,8 +106,8 @@ const Dashboard = (props) => {
             <div className={toggleCart ? 'cart' : 'none'}>
                 <Cart
                     show={show}
-                    cart={props.cart}
-                    items={props.itemsCart}
+                    cart={cart}
+                    items={itemsCart}
                 />
             </div>
             <div className={toggleCart ? 'filter' : 'none'}>
@@ -114,25 +117,6 @@ const Dashboard = (props) => {
 }
 
 
-//? Mapeo de los props de Redux
-const mapStateToProps = (state) => {
-    return {
-        item: state.itemState.item,
-        error: state.itemState.error,
-        cart: state.cartState.cart,
-        itemsCart: state.cartState.itemsCart
-    }
-}
-
-
-//? Mapeo de la funcion a usar de Redux
-const mapDispatchToProps = (dispatch) => ({
-    onLoadItemStarted: (item) => dispatch(itemActionRequestStarted(item)),
-    onLoadCartStarted: (cart) => dispatch(cartActionRequestStarted(cart)),
-    onLoadItemsCartStarted: (query) => dispatch(cartItemsActionRequestStarted(query)),
-    postItem: (data) => dispatch(itemPostActionRequestStarted(data)),
-    postItemCart: (item) => dispatch(cartItemPostActionRequestStarted(item)),
-});
 
 
 const Container = styled.div`
@@ -199,4 +183,4 @@ z-index: 4;
 
 
 `
-export default connect(mapStateToProps, mapDispatchToProps)(Dashboard)
+export default Dashboard

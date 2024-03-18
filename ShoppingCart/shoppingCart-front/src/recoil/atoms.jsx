@@ -1,8 +1,20 @@
 import { atom } from "recoil";
 
-export const getItems = atom({
-  key: 'items', // unique ID (with respect to other atoms/selectors)
-  default: [], // default value (aka initial value)
+export const itemsAtom = atom({
+  key: 'itemsState', 
+  default: [], 
+});
+
+
+export const cartAtom = atom ({
+  key: 'cartState',
+  default: [], 
+});
+
+
+export const itemsCartAtom = atom ({
+  key: 'itemsCartState',
+  default: [], 
 });
 
 

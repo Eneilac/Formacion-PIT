@@ -1,4 +1,3 @@
-from pymysql.cursors import DictCursor
 from database.dao import BaseDao
 from database.Item import queries
 

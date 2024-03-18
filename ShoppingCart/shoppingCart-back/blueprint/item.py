@@ -40,7 +40,6 @@ def post_item():
 def delete_item_by_id(item_id):
     dao = ItemDao()
     try:
-        print(item_id)
         dao.delete_item_by_id(item_id)
         return jsonify({'message': 'Item deleted successfully', 'deleted_item_id': item_id})
     except Exception as e:
